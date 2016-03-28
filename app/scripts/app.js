@@ -83,14 +83,20 @@ function eventTriggers() {
     });
 
     if (userInput.targBy === 'Altitude') {
-      userInput.targAlt = targetAlt.querySelector('label input').value;
+      userInput.targAlt = parseInt(targetAlt.querySelector('label input').value, 10);
     } else if (userInput.targBy === 'Period') {
-      var timeSec = targetPer.querySelector('label input[name="seconds"]').value;
-      var timeMin = targetPer.querySelector('label input[name="minutes"]').value;
-      var timeHour = targetPer.querySelector('label input[name="hours"]').value;
-      var timeDay = targetPer.querySelector('label input[name="days"]').value * userInput.body.siderealDayS;
-      userInput.targPer = timeSec + timeMin + timeHour + timeDay;
+      targetPer.querySelector('label input').forEach(function(data){
+        if (data.value === NaN) {
+          data.value = 0;
+        }
+      });
+      var timeSec = parseInt(targetPer.querySelector('label input[name="seconds"]').value, 10);
+      timeSec += parseInt(targetPer.querySelector('label input[name="minutes"]').value, 10) *60;
+      timeSec += parseInt(targetPer.querySelector('label input[name="hours"]').value, 10) *3600;
+      timeSec += parseInt(targetPer.querySelector('label input[name="days"]').value, 10) * userInput.body.siderealDayS;
+      userInput.targPer = timeSec;
       console.log(userInput.targPer);
+      console.log(timeSec);
     }
   });
 }
