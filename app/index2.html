@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="adHead"></div>
+  <h1>Kerbal Space Program</h1>
+  <h2>Satellite Network Deployment Calculator</h2>
+  <form action="">
+    <table id="mainInputTable">
+      <thead><button id="instructionButton">Instruction</button></thead>
+      <tbody>
+        <tr>
+          <td>System</td>
+          <td>Body</td>
+        </tr>
+        <tr>
+          <td><select name="solSelect" id="solSelect"></select></td>
+          <td><select name="bodySelect" id="bodySelect"></select></td>
+        </tr>
+        <tr>
+          <td>Placement Precision</td>
+          <td># of Sats</td>
+        </tr>
+        <tr>
+          <td><input type="number" id="precInput" name="precInput" value="0.1"></td>
+          <td><input type="number" id="satCount" name="satCount"></td>
+        </tr>
+        <tr>
+          <td colspan="2"><select name="targBySelect" id="targBySelect">
+            <option value="alt">Target Period</option>
+            <option value="per">Target Altitude</option>
+          </select></td>
+        </tr>
+      </tbody>
+    </table>
+    <table id="altInputTable">
+      <tbody>
+        <tr>
+          <td>Circ (m):</td>
+          <td><input type="number" id="targAltInput" name="targAltInput"></td>
+        </tr>
+      </tbody>
+    </table>
+    <table id="perInputTable">
+      <tbody>
+        <tr>
+          <td>Days</td>
+          <td>Hours</td>
+          <td>Minutes</td>
+          <td>Seconds</td>
+        </tr>
+        <tr>
+          <td><input type="number" name="perDayInput" id="perDayInput"></td>
+          <td><input type="number" name="perHourInput" id="perHourInput"></td>
+          <td><input type="number" name="perMinInput" id="perMinInput"></td>
+          <td><input type="number" name="perSecInput" id="perSecInput"></td>
+        </tr>
+        <tr>
+          <td colspan="4"><input type="submit" id="doMaths" value="Do Maths!"></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+<script src="./scripts/app1.js"></script>

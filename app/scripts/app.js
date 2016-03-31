@@ -1,5 +1,7 @@
 // import json data - ajax for site and requires for node
 var bodyObjectList;
+var userInput;
+
 var bodyNameInput = document.getElementById('bodyName');
 var numOfSatsInput = document.getElementById('numOfSats');
 var targetSelector = document.getElementById('targetType');
@@ -14,8 +16,6 @@ var hourForm = targetPer.querySelector('label input[name="hours"]');
 var dayForm = targetPer.querySelector('label input[name="days"]');
 
 var submit = document.getElementById('submit');
-
-var userInput;
 
 // sets form to 0 when alternate form submitted
 function zeroPerForm() {
