@@ -59,13 +59,13 @@
               <td># of Sats</td>
             </tr>
             <tr>
-              <td><input type="number" id="precInput" name="precInput" value="0.1"></td>
-              <td><input type="number" id="satCount" name="satCount"></td>
+              <td><input type="number" id="precInput" name="precInput" value="0.01"></td>
+              <td><input type="number" id="satCount" name="satCount" value="2"></td>
             </tr>
             <tr>
               <td colspan="2"><select name="targBySelect" id="targBySelect">
-                <option value="alt">Target Period</option>
                 <option value="per">Target Altitude</option>
+                <option value="alt">Target Period</option>
               </select></td>
             </tr>
           </tbody>
@@ -87,10 +87,10 @@
               <td>Seconds</td>
             </tr>
             <tr>
-              <td><input type="number" name="perDayInput" id="perDayInput"></td>
-              <td><input type="number" name="perHourInput" id="perHourInput"></td>
-              <td><input type="number" name="perMinInput" id="perMinInput"></td>
-              <td><input type="number" name="perSecInput" id="perSecInput"></td>
+              <td><input type="number" name="perDayInput" class="perInputs" id="perDayInput"></td>
+              <td><input type="number" name="perHourInput" class="perInputs" id="perHourInput"></td>
+              <td><input type="number" name="perMinInput" class="perInputs" id="perMinInput"></td>
+              <td><input type="number" name="perSecInput" class="perInputs" id="perSecInput"></td>
             </tr>
             <tr>
               <td colspan="4"><input type="submit" id="doMaths" value="Do Maths!"></td>

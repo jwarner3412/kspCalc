@@ -13,13 +13,11 @@ var inputSelectors = {
   perDayInput: document.getElementById('perDayInput'),
   perHourInput: document.getElementById('perHourInput'),
   perMinInput: document.getElementById('perMinInput'),
-  altInputTable: document.getElementById('altInputTable'),
-  perInputTable: document.getElementById('perInputTable')
+  perSecInput: document.getElementById('perSecInput')
 };
 var outputSelectors = {
 
 };
-
 // AJAX request for data file
 function importData(url) {
   // adds entries to ui menus
@@ -51,6 +49,7 @@ function bodyOptionBuild() {
   bodySelectList[inputSelectors.solSelect.value].forEach(function(array, ii) {
     createOption(ii, array, inputSelectors.bodySelect);
   });
+  eventTriggers();
 }
 // creates select options from data provided by json loops
 function createOption(val, txt, addLoc) {
@@ -62,33 +61,120 @@ function createOption(val, txt, addLoc) {
 // take a guess
 function recordInitInfo() {
   userInput = {
-    sol: inputSelectors.solSelect.value,
-    body: inputSelectors.bodySelect.value,
-    targBy: inputSelectors.targBySelect.value
+    solSelect: inputSelectors.solSelect.value,
+    bodySelect: inputSelectors.bodySelect.value,
+    targBySelect: inputSelectors.targBySelect.value,
+    precInput: parseFloat(inputSelectors.precInput.value),
+    satCount: parseFloat(inputSelectors.satCount.value)
   };
+  userInput.body = dataList[userInput.solSelect].bodys[userInput.bodySelect];
+  userInput.minAlt = Math.minAlt(userInput);
+  if (inputSelectors.targAltInput.value === '' || inputSelectors.targAltInput.value < userInput.minAlt) {
+    inputSelectors.targAltInput.value = userInput.minAlt;
+  }
+  userInput.targAltInput = parseFloat(inputSelectors.targAltInput.value);
+  userInput.targSemiMaj = Math.semiMajT(userInput);
+  userInput.perSecTot = 2 * Math.PI * Math.sqrt(userInput.targSemiMaj ^ 3 / userInput.body.MUms3);
+  if (userInput.perSecTot > 60) {
+    var secondsR = userInput.perSecTot % 60;
+    inputSelectors.perSecInput.value = secondsR;
+    var minutes = (userInput.perSecTot - secondsR) / 60;
+    if (minutes > 60) {
+      var minutesR = minutes % 60;
+      inputSelectors.perMinInput.value = minutesR;
+      var hours = (minutes - minutesR) / 60;
+      if (hours > (userInput.body.siderealDayS / 3600)) {
+        var hoursR = hours % (userInput.body.siderealDayS / 3600);
+        inputSelectors.perHourInput.value = hoursR;
+        var days = (hours - hoursR) / (userInput.body.siderealDayS / 3600);
+        if (days > 0) {
+          inputSelectors.perDayInput.value = days;
+        } else {
+          inputSelectors.perDayInput.value = 0;
+        }
+      } else {
+        inputSelectors.perHourInput.value = hours;
+        inputSelectors.perDayInput.value = 0;
+      }
+    } else {
+      inputSelectors.perMinInput.value = minutes;
+      inputSelectors.perHourInput.value = 0;
+      inputSelectors.perDayInput.value = 0;
+    }
+  } else {
+    inputSelectors.perSecInput.value = userInput.perSecTot;
+    inputSelectors.perMinInput.value = 0;
+    inputSelectors.perHourInput.value = 0;
+    inputSelectors.perDayInput.value = 0;
+  }
+  console.log(userInput.perSecTot);
 }
+Math.toSec = function() {
+  var sec = parseFloat(inputSelectors.perSecInput.value);
+  var min = parseFloat(inputSelectors.perMinInput.value) * 60;
+  var hour = parseFloat(inputSelectors.perHourInput.value) * 3600;
+  var day = parseFloat(inputSelectors.perDayInput.value) * userInput.body.siderealDayS;
+  return (sec + min + hour + day);
+};
+// math function object
+Math.radians = function(degrees) {
+  return degrees * Math.PI / 180;
+};
+Math.minAlt = function(input) {
+  return Math.max(Math.ceil(input.body.radiusM / Math.cos(Math.radians(180 / input.satCount + input.precInput)) - input.body.radiusM), input.body.minPE);
+};
+Math.semiMajT = function(input) {
+  return (2 * input.targAltInput + 2 * input.body.radiusM) / 2;
+};
 // bind event triggers - sol, body, targetby selects, bind buttons
 function eventTriggers() {
+  recordInitInfo();
+  targHandler();
+  function targHandler() {
+    function disableAlt() {
+      inputSelectors.targAltInput.disabled = false;
+      inputSelectors.perDayInput.disabled = true;
+      inputSelectors.perHourInput.disabled = true;
+      inputSelectors.perMinInput.disabled = true;
+      inputSelectors.perSecInput.disabled = true;
+    }
+    function disablePer() {
+      inputSelectors.targAltInput.disabled = true;
+      inputSelectors.perDayInput.disabled = false;
+      inputSelectors.perHourInput.disabled = false;
+      inputSelectors.perMinInput.disabled = false;
+      inputSelectors.perSecInput.disabled = false;
+    }
+    if (inputSelectors.targBySelect.value === 'alt') {
+      disablePer();
+    } else {
+      disableAlt();
+    }
+  }
+  function periodHandler() {
+    userInput.perSecTot = Math.toSec();
+    recordInitInfo();
+  }
   // sol selects
   inputSelectors.solSelect.addEventListener('change', function() {
-    // clear body options
     inputSelectors.bodySelect.options.length = 0;
-    // re-build body options
     bodyOptionBuild();
-    recordInitInfo();
   });
   // body selects
-  inputSelectors.bodySelect.addEventListener('change', function() {
-    recordInitInfo();
-    // perform math for min alt and per, store in userInput, fill form values
-    console.log(userInput);
-  });
-
+  inputSelectors.bodySelect.addEventListener('change', recordInitInfo);
+  // alt input change
+  inputSelectors.targAltInput.addEventListener('change', recordInitInfo);
+  // satellite count change
+  inputSelectors.satCount.addEventListener('change', recordInitInfo);
+  // placement precsision change
+  inputSelectors.precInput.addEventListener('change', recordInitInfo);
+  // period input change
+  inputSelectors.perSecInput.addEventListener('change', periodHandler);
+  inputSelectors.perMinInput.addEventListener('change', periodHandler);
+  inputSelectors.perHourInput.addEventListener('change', periodHandler);
+  inputSelectors.perDayInput.addEventListener('change', periodHandler);
   // targetby selects
-  inputSelectors.targBySelect.addEventListener('change', function() {
-    // show or hide appropriate table
-    // disable form capture
-  });
+  inputSelectors.targBySelect.addEventListener('change', targHandler);
   // buttons
     // instructionButton
       // pull up full screen instructions
@@ -99,6 +185,4 @@ function eventTriggers() {
     // rtantenna button
       // write in small table with antenna ranges
 }
-
 importData('./scripts/data.json');
-eventTriggers();
