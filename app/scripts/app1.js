@@ -18,39 +18,18 @@ var inputSelectors = {
 var outputSelectors = {
 
 };
-// AJAX request for data file
-function importData(url) {
-  // adds entries to ui menus
-  function listPopulate(array) {
-    array.forEach(function(obj, index) {
-      createOption(index, obj.name, inputSelectors.solSelect);
-      var list = [];
-      obj.bodys.forEach(function(body) {
-        list.push(body.bodyName);
-      });
-      bodySelectList.push(list);
-    });
-    bodyOptionBuild();
-  }
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      dataList = JSON.parse(xhr.responseText);
-      listPopulate(dataList);
-    } else {
-      console.log('Loading...');
-    }
-  };
-  xhr.open('GET', url, true);
-  xhr.send();
-}
-// builds the body list based on sol value
-function bodyOptionBuild() {
-  bodySelectList[inputSelectors.solSelect.value].forEach(function(array, ii) {
-    createOption(ii, array, inputSelectors.bodySelect);
-  });
-  eventTriggers();
-}
+
+Math.toSec = function() {
+  var daySec = parseFloat(userInput.body.siderealDayS);
+  var sec = parseFloat(inputSelectors.perSecInput.value);
+  var min = parseInt(inputSelectors.perMinInput.value, 10) * 60;
+  var hour = parseInt(inputSelectors.perHourInput.value, 10) * 3600;
+  var day = parseInt(inputSelectors.perDayInput.value, 10) * daySec;
+  return (sec + min + hour + day);
+};
+Math.radians = function(degrees) {
+  return degrees * Math.PI / 180;
+};
 // creates select options from data provided by json loops
 function createOption(val, txt, addLoc) {
   var option = document.createElement('option');
@@ -58,23 +37,75 @@ function createOption(val, txt, addLoc) {
   option.text = txt;
   addLoc.add(option);
 }
+// AJAX request for data file
+function importData(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      dataList = JSON.parse(xhr.responseText);
+      (function(array, callback) {
+        array.forEach(function(obj, index) {
+          createOption(index, obj.name, inputSelectors.solSelect);
+          var list = [];
+          obj.bodys.forEach(function(body) {
+            list.push(body.bodyName);
+          });
+          bodySelectList.push(list);
+        });
+        callback(bodySelectList, data, cb, cb1, cb2, cb3, cb4);
+      })(dataList, bodyOptionBuild, data, cb, cb1, cb2, cb3, cb4);
+    } else {
+      console.log('Loading...');
+    }
+  };
+  xhr.open('GET', url, true);
+  xhr.send();
+  callback();
+}
+// builds the body list based on sol value
+function bodyOptionBuild(data, cb, cb1, cb2, cb3, cb4) {
+  data[inputSelectors.solSelect.value].forEach(function(array, ii) {
+    createOption(ii, array, inputSelectors.bodySelect);
+  });
+  cb(cb1, cb2, cb3, cb4);
+}
 // take a guess
-function recordInitInfo() {
+function recordInitInfo(cb1, cb2, cb3, cb4) {
   userInput = {
     solSelect: inputSelectors.solSelect.value,
     bodySelect: inputSelectors.bodySelect.value,
     targBySelect: inputSelectors.targBySelect.value,
     precInput: parseFloat(inputSelectors.precInput.value),
-    satCount: parseFloat(inputSelectors.satCount.value)
+    satCount: parseInt(inputSelectors.satCount.value, 10)
   };
   userInput.body = dataList[userInput.solSelect].bodys[userInput.bodySelect];
-  userInput.minAlt = Math.minAlt(userInput);
-  if (inputSelectors.targAltInput.value === '' || inputSelectors.targAltInput.value < userInput.minAlt) {
-    inputSelectors.targAltInput.value = userInput.minAlt;
+  cb1(cb2, cb3, cb4);
+}
+function minAltMath(cb2, cb3, cb4) {
+  var bodyR = userInput.body.radiusM;
+  var minPE = userInput.body.minPE;
+  var satCount = userInput.satCount;
+  var precInput = userInput.precInput;
+  var rads = Math.radians(180 / satCount + precInput);
+  var minAlt = Math.max(Math.ceil(bodyR / Math.cos(rads) - bodyR), minPE);
+  var tAltVal = parseFloat(inputSelectors.targAltInput.value);
+  if (tAltVal === '' || tAltVal < minAlt) {
+    inputSelectors.targAltInput.value = minAlt;
   }
   userInput.targAltInput = parseFloat(inputSelectors.targAltInput.value);
-  userInput.targSemiMaj = Math.semiMajT(userInput);
-  userInput.perSecTot = 2 * Math.PI * Math.sqrt(userInput.targSemiMaj ^ 3 / userInput.body.MUms3);
+  cb2(cb3, cb4);
+}
+function semiMajMathT(cb3, cb4) {
+  userInput.targSemiMaj = (((2 * userInput.targAltInput) + (2 * userInput.body.radiusM)) / 2);
+  cb3(cb4);
+}
+function targPerMath(cb4) {
+  var Mu = userInput.body.MUms3;
+  var tSM = userInput.targSemiMaj;
+  userInput.perSecTot = 2 * Math.PI * Math.sqrt(tSM ^ 3 / Mu);
+  cb4();
+}
+function parseSec() {
   if (userInput.perSecTot > 60) {
     var secondsR = userInput.perSecTot % 60;
     inputSelectors.perSecInput.value = secondsR;
@@ -107,28 +138,9 @@ function recordInitInfo() {
     inputSelectors.perHourInput.value = 0;
     inputSelectors.perDayInput.value = 0;
   }
-  console.log(userInput.perSecTot);
 }
-Math.toSec = function() {
-  var sec = parseFloat(inputSelectors.perSecInput.value);
-  var min = parseFloat(inputSelectors.perMinInput.value) * 60;
-  var hour = parseFloat(inputSelectors.perHourInput.value) * 3600;
-  var day = parseFloat(inputSelectors.perDayInput.value) * userInput.body.siderealDayS;
-  return (sec + min + hour + day);
-};
-// math function object
-Math.radians = function(degrees) {
-  return degrees * Math.PI / 180;
-};
-Math.minAlt = function(input) {
-  return Math.max(Math.ceil(input.body.radiusM / Math.cos(Math.radians(180 / input.satCount + input.precInput)) - input.body.radiusM), input.body.minPE);
-};
-Math.semiMajT = function(input) {
-  return (2 * input.targAltInput + 2 * input.body.radiusM) / 2;
-};
 // bind event triggers - sol, body, targetby selects, bind buttons
 function eventTriggers() {
-  recordInitInfo();
   targHandler();
   function targHandler() {
     function disableAlt() {
@@ -153,21 +165,27 @@ function eventTriggers() {
   }
   function periodHandler() {
     userInput.perSecTot = Math.toSec();
-    recordInitInfo();
+    recordInitInfo(minAltMath, semiMajMathT, targPerMath, parseSec);
+  }
+  function altReset() {
+    inputSelectors.targAltInput.value = 0;
+    recordInitInfo(minAltMath, semiMajMathT, targPerMath, parseSec);
+  }
+  function bodyReset() {
+    inputSelectors.bodySelect.options.length = 0;
+    inputSelectors.targAltInput.value = 0;
+    bodyOptionBuild(recordInitInfo, minAltMath, semiMajMathT, targPerMath, parseSec);
   }
   // sol selects
-  inputSelectors.solSelect.addEventListener('change', function() {
-    inputSelectors.bodySelect.options.length = 0;
-    bodyOptionBuild();
-  });
+  inputSelectors.solSelect.addEventListener('change', bodyReset);
   // body selects
-  inputSelectors.bodySelect.addEventListener('change', recordInitInfo);
+  inputSelectors.bodySelect.addEventListener('change', altReset);
   // alt input change
-  inputSelectors.targAltInput.addEventListener('change', recordInitInfo);
+  inputSelectors.targAltInput.addEventListener('change', recordInitInfo(minAltMath, semiMajMathT, targPerMath, parseSec));
   // satellite count change
-  inputSelectors.satCount.addEventListener('change', recordInitInfo);
+  inputSelectors.satCount.addEventListener('change', altReset);
   // placement precsision change
-  inputSelectors.precInput.addEventListener('change', recordInitInfo);
+  inputSelectors.precInput.addEventListener('change', altReset);
   // period input change
   inputSelectors.perSecInput.addEventListener('change', periodHandler);
   inputSelectors.perMinInput.addEventListener('change', periodHandler);
@@ -185,4 +203,4 @@ function eventTriggers() {
     // rtantenna button
       // write in small table with antenna ranges
 }
-importData('./scripts/data.json');
+importData('./scripts/data.json', eventTriggers);
