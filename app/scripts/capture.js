@@ -10,33 +10,28 @@ Math.radians = function(degrees) {
   return degrees * Math.PI / 180;
 };
 
-// userInput methods
-// take a guess
-
-userInput.prototype.minAltMath = function() {
-  var bodyR = userInput.body.radiusM;
-  var minPE = userInput.body.minPE;
-  var satCount = userInput.satCount;
-  var precInput = userInput.precInput;
+$form.userBody.minAltMath = function() {
+  var bodyR = this.radiusM;
+  var minPE = this.minPE;
+  var satCount = parseInt($form.satCount.value);
+  var precInput = parseFloat($form.precInput.value);
   var rads = Math.radians(180 / satCount + precInput);
   var minAlt = Math.max(Math.ceil(bodyR / Math.cos(rads) - bodyR), minPE);
-  var tAltVal = parseFloat($form.targAltInput.value);
-  if (tAltVal === '' || tAltVal < minAlt) {
-    $form.targAltInput.value = minAlt;
-  }
-  userInput.targAltInput = parseFloat($form.targAltInput.value);
+  this.minOrbitAlt = minAlt;
+  console.log('minimum alt maths' + this);
   return this;
 }
-userInput.prototype.semiMajMathT = function() {
+$form.userBody.semiMajMathT = function() {
   userInput.targSemiMaj = (((2 * userInput.targAltInput) + (2 * userInput.body.radiusM)) / 2);
   return this;
 }
-userInput.prototype.targPerMath = function() {
+$form.userBody.targPerMath = function() {
   var Mu = userInput.body.MUms3;
   var tSM = userInput.targSemiMaj;
   userInput.perSecTot = 2 * Math.PI * Math.sqrt(tSM ^ 3 / Mu);
   return this;
 }
+/*
 userInput.prototype.parseSec = function() {
   if (userInput.perSecTot > 60) {
     var secondsR = userInput.perSecTot % 60;
@@ -72,5 +67,4 @@ userInput.prototype.parseSec = function() {
   }
   return this;
 }
-
-// bind event triggers - sol, body, targetby selects, bind buttons
+*/
