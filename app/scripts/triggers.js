@@ -2,13 +2,17 @@ $form.eventTriggers = function() {
   // sol selects
   $form.solSelect.addEventListener('change',
     $form.selectHandler.bind(this,
-      this.recordBody.bind(this,
-        $form.userBody.minAltMath.bind($form[userBody])
+      $form.recordBody.bind(this,
+        $form.minAltMath.bind(this,
+          $form.altHandler.bind(this)
+        )
       )
     )
   );
   $form.bodySelect.addEventListener('change', $form.recordBody.bind(this,
-    this.userBody.minAltMath.bind($form.userBody)
+    $form.minAltMath.bind(this,
+      $form.altHandler.bind(this)
+    )
   ));
   // alt input change
   /*

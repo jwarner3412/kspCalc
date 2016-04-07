@@ -10,22 +10,22 @@ Math.radians = function(degrees) {
   return degrees * Math.PI / 180;
 };
 
-$form.userBody.minAltMath = function() {
-  var bodyR = this.radiusM;
-  var minPE = this.minPE;
-  var satCount = parseInt($form.satCount.value);
-  var precInput = parseFloat($form.precInput.value);
+$form.minAltMath = function() {
+  var bodyR = this.userBody.radiusM;
+  var minPE = this.userBody.minPE;
+  var satCount = parseInt(this.satCount.value);
+  var precInput = parseFloat(this.precInput.value);
   var rads = Math.radians(180 / satCount + precInput);
   var minAlt = Math.max(Math.ceil(bodyR / Math.cos(rads) - bodyR), minPE);
-  this.minOrbitAlt = minAlt;
-  console.log('minimum alt maths' + this);
+  this.userBody.minOrbitAlt = minAlt;
+  console.log('minimum alt maths: ' + minAlt);
   return this;
 }
-$form.userBody.semiMajMathT = function() {
+$form.semiMajMathT = function() {
   userInput.targSemiMaj = (((2 * userInput.targAltInput) + (2 * userInput.body.radiusM)) / 2);
   return this;
 }
-$form.userBody.targPerMath = function() {
+$form.targPerMath = function() {
   var Mu = userInput.body.MUms3;
   var tSM = userInput.targSemiMaj;
   userInput.perSecTot = 2 * Math.PI * Math.sqrt(tSM ^ 3 / Mu);

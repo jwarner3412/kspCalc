@@ -40,9 +40,12 @@ $form.recordBody = function(callback) {
 };
 
 $form.altHandler = function(callback) {
-  if (this.targAltInput.value < this.userBody.minOrbitAlt) {
+  var altInput = parseFloat(this.targAltInput.value);
+  if (altInput < this.userBody.minOrbitAlt) {
+    console.log('settin minAlt' this);
     this.targAltInput.value = this.userBody.minOrbitAlt;
   }
+  console.log(altInput);
   if (typeof callback === 'function') {
     callback();
   }
