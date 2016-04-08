@@ -3,9 +3,7 @@
     $form.selectBuild.bind($form,
       $form.selectHandler.bind($form,
         $form.targHandler.bind($form,
-          $form.recordBody.bind($form,
-            $form.eventTriggers.bind($form)
-          )
+          $form.eventTriggers.bind($form)
         )
       )
     )
