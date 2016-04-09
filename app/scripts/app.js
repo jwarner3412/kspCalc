@@ -1,5 +1,5 @@
 (function(callback) {
-  $form.importData('./scripts/data.json',
+  $form.importData('./data.json',
     $form.selectBuild.bind($form,
       $form.selectHandler.bind($form,
         $form.targHandler.bind($form,

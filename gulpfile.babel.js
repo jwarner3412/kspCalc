@@ -42,7 +42,7 @@ gulp.task('lint', () =>
   gulp.src('app/scripts/**/*.js')
     .pipe($.eslint())
     .pipe($.eslint.format())
-    .pipe($.if(!browserSync.active, $.eslint.failOnError()))
+    //.pipe($.if(!browserSync.active, $.eslint.failOnError()))
 );
 
 // Optimize images
@@ -109,8 +109,13 @@ gulp.task('scripts', () =>
       // Note: Since we are not using useref in the scripts build pipeline,
       //       you need to explicitly list your scripts here in the right order
       //       to be correctly concatenated
-      './app/scripts/main.js'
       // Other scripts
+      './app/scripts/main.js',
+      './app/scripts/build.js',
+      './app/scripts/maths.js',
+      './app/scripts/handlers.js',
+      './app/scripts/triggers.js',
+      './app/scripts/app.js'
     ])
       .pipe($.newer('.tmp/scripts'))
       .pipe($.sourcemaps.init())
