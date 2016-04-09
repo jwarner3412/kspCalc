@@ -12,7 +12,7 @@ $form.eventTriggers = function() {
     $form.recordBody().zeroInputs().minMath().targValHandler();
   });
 
-  // satellite count change (handles minVal in case browser doesnt)
+  // satellite count change
   $form.satCount.addEventListener('change', function() {
     $form.zeroInputs().minMath().targValHandler();
   });
