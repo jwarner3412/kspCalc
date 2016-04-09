@@ -51,7 +51,11 @@ $form.selectBuild = function(callback) {
     crtOpt(index, obj.name, this.solSelect);
     var bodyList = [];
     dataList[index].bodys.forEach(function(array, ii) {
-      crtOpt(ii, array.bodyName, bodyList);
+      if (array.orbits === 'Sun' || array.orbits === 0) {
+        crtOpt(ii, array.bodyName, bodyList);
+      } else {
+        crtOpt(ii, '-' + array.bodyName, bodyList);
+      }
     });
     $form.optList.push(bodyList);
   });
