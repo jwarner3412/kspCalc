@@ -14,14 +14,14 @@ var Body = {
   "synodicDayS": 2665723.45
 }
 */
-var Body = function(name, orbits, rad, mass, daysec, minPE) {
+var Body = function(name, orbits, rad, massKG, daysec, minPE) {
   var G = 3.5316e+12;
   this.orbits = orbits;
   this.bodyName = name;
   this.radiusM = rad;
-  this.massKG = mass
+  this.massKG = massKG;
   this.siderealDayS = daysec;
-  this.MUms3 = (G * (mass * 1000));
+  this.MUms3 = (G * (massKG * 1000));
 }
 
 var mercury = new Body('Mercury', 'Sun', 261600000, 1.756567E+28, 1210000, 6818);
