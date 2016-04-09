@@ -46,32 +46,7 @@ $form.recordBody = function(callback) {
 };
 
 // prevents targeting and orbit under minimum alt
-$form.altHandler = function(callback) {
-  var altInput = parseFloat(this.targAltInput.value);
-  if (this.targBySelect.value === 'alt') {
-    if (altInput < this.userBody.minOrbitAlt) {
-      console.log('Too low, settin minAlt');
-      this.targAltInput.value = this.userBody.minOrbitAlt;
-    }
-    console.log('Alt changed, acceptable height.');
-  } else {
-    console.log('Alt is ignored.');
-  }
-  if (typeof callback === 'function') {
-    callback();
-  }
-  return this;
-};
-
-// either populates period data in form or sets perSecTot
-$form.perHandler = function() {
-  var popTime = function(sec, bodyT) {
-    $form.perSecInput.value = Math.floor((sec % 60) * 1000) / 1000;
-    $form.perMinInput.value = Math.floor((sec % 3600) / 60);
-    $form.perHourInput.value = Math.floor((sec % bodyT) / 3600);
-    $form.perDayInput.value = Math.floor(sec / bodyT);
-  };
-
+$form.targValHandler = function(callback) {
   var parseTime = function(bodyT) {
     var sec = parseFloat($form.perSecInput.value);
     var min = parseInt($form.perMinInput.value, 10) * 60;
@@ -80,15 +55,25 @@ $form.perHandler = function() {
     var secTot = sec + min + hour + day;
     return secTot;
   };
-
+  var popTime = function(sec, bodyT) {
+    $form.perSecInput.value = Math.floor((sec % 60) * 1000) / 1000;
+    $form.perMinInput.value = Math.floor((sec % 3600) / 60);
+    $form.perHourInput.value = Math.floor((sec % bodyT) / 3600);
+    $form.perDayInput.value = Math.floor(sec / bodyT);
+  };
   var bodySec = this.userBody.siderealDayS;
   var secTot;
   var alt;
   if (this.targBySelect.value === 'alt') {
     var altInput = parseInt(this.targAltInput.value, 10);
+    if (altInput < this.userBody.minOrbitAlt) {
+      console.log('Too low, settin minAlt');
+      this.targAltInput.value = this.userBody.minOrbitAlt;
+      altInput = parseInt(this.targAltInput.value, 10);
+    }
     secTot = this.altToPer(altInput);
     popTime(secTot, bodySec);
-    console.log('time set');
+    console.log('Alt changed, acceptable height. Time set.');
   } else {
     secTot = parseTime(bodySec);
     if (secTot < this.userBody.minOrbitPer) {
@@ -99,6 +84,9 @@ $form.perHandler = function() {
     alt = this.perToAlt(secTot);
     this.targAltInput.value = alt;
     console.log('Seconds parsed from input, alt updated');
+  }
+  if (typeof callback === 'function') {
+    callback();
   }
   return this;
 };
@@ -111,8 +99,8 @@ $form.zeroInputs = function() {
       $form.perInput[i].value = 0;
     }
   }
-  if ($form.satCount.value < 2) {
-    $form.satCount.value = 2;
+  if (this.satCount.value < 2) {
+    this.satCount.value = 2;
   }
   console.log('Inputs set to 0.');
   return this;
