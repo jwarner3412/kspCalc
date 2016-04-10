@@ -110,12 +110,13 @@ gulp.task('scripts', () =>
       //       you need to explicitly list your scripts here in the right order
       //       to be correctly concatenated
       // Other scripts
-      './app/scripts/main.js',
       './app/scripts/build.js',
+      './app/scripts/input.js',
       './app/scripts/maths.js',
       './app/scripts/handlers.js',
       './app/scripts/triggers.js',
-      './app/scripts/app.js'
+      './app/scripts/app.js',
+      './app/scripts/main.js'
     ])
       .pipe($.newer('.tmp/scripts'))
       .pipe($.sourcemaps.init())

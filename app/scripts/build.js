@@ -16,7 +16,8 @@ var $form = {
   depPe: document.getElementById('depPe'),
   depAp: document.getElementById('depAp'),
   targAltResult: document.getElementById('targAltResult'),
-  optList: []
+  optList: [],
+  snapOpt: [0, 0, 0, 0, 0]
 };
 
 // AJAX request for data file
@@ -67,7 +68,7 @@ $form.selectBuild = function(callback) {
     });
     $form.optList.push(bodyList);
   });
-  console.log('selects build from json data');
+  console.log('Building select options from JSON data.');
   if (typeof callback === 'function') {
     callback();
   }

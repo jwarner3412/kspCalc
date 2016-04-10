@@ -26,11 +26,13 @@ html, body {
 }
 
 .perInputs {
-  width: 5em;
+  width: 2.5em;
 }
-
+#perSecInput {
+  width: 7.5em;
+}
 #targAltInput {
-  width: 5em;
+  width: 10em;
 }
 
 #satCount {

@@ -58,5 +58,5 @@ $form.eventTriggers = function() {
     $form.resultHandler();
   });
 
-  console.log('triggers set');
+  console.log('Event listeners set.');
 };
