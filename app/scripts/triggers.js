@@ -1,5 +1,10 @@
+$form.prevDefault = function(evt) {
+  evt.preventDefault();
+  return this;
+}
 $form.eventTriggers = function() {
   // runs complete chain 1 time for default values
+  // selects are built on app start
   $form.recordBody().zeroInputs().minMath().targValHandler();
 
   // sol selects
@@ -45,5 +50,12 @@ $form.eventTriggers = function() {
   $form.perDayInput.addEventListener('change', function() {
     $form.targValHandler();
   });
+
+// buttons
+  $form.doMaths.addEventListener('click', function(evt) {
+    evt.preventDefault();
+    $form.resultHandler();
+  });
+
   console.log('triggers set');
 };

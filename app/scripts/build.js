@@ -13,6 +13,8 @@ var $form = {
   perMinInput: document.getElementById('perMinInput'),
   perSecInput: document.getElementById('perSecInput'),
   perInput: document.getElementsByClassName('perInputs'),
+  depPe: document.getElementById('depPe'),
+  depAp: document.getElementById('depAp'),
   optList: []
 };
 
@@ -31,8 +33,12 @@ $form.importData = function(url, callback) {
   xhr.open('GET', url, true);
   xhr.send();
 };
-// $form methods
+
 // creates select options from data provided by json loops
+// cycles over dataList, sets option names(looks at 'orbits' prop to see if its
+// a sun or moon and sets a -/* accordingly), values for array lookups(option
+// value is the key value of the corresponding bodydata object), and adds to
+// either array or html select
 $form.selectBuild = function(callback) {
   function crtOpt(val, txt, addLoc) {
     var option = document.createElement('option');
@@ -46,15 +52,16 @@ $form.selectBuild = function(callback) {
       console.log('fail');
     }
   }
-
   dataList.forEach(function(obj, index) {
     crtOpt(index, obj.name, this.solSelect);
     var bodyList = [];
     dataList[index].bodys.forEach(function(array, ii) {
-      if (array.orbits === 'Sun' || array.orbits === 0) {
+      if (array.orbits === 'Sun') {
         crtOpt(ii, array.bodyName, bodyList);
+      } else if (array.orbits === 0) {
+        crtOpt(ii, '* ' + array.bodyName + ' *', bodyList);
       } else {
-        crtOpt(ii, '-' + array.bodyName, bodyList);
+        crtOpt(ii, ' -' + array.bodyName, bodyList);
       }
     });
     $form.optList.push(bodyList);
