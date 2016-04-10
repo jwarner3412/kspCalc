@@ -78,7 +78,7 @@ $form.targValHandler = function(callback) {
       this.targAltInput.value = this.userBody.minOrbitAlt;
       secTot = this.orbConvrt(this.userBody.minOrbitAlt, 'alt', 1);
       depAp = $form.depMath(secTot);
-    } else if (depAp > this.userBody.maxOrbitAlt) {
+    } else if (depAp > this.userBody.maxOrbitAlt && this.userBody.soiRadM) {
       console.log('Too high, setting max alt');
       this.targAltInput.value = this.userBody.maxOrbitAlt;
       secTot = this.orbConvrt(this.userBody.maxOrbitAlt, 'alt', 1);
@@ -92,7 +92,7 @@ $form.targValHandler = function(callback) {
       console.log('Too low, setting minimum period.');
       secTot = this.userBody.minOrbitPer;
       depAp = $form.depMath(secTot);
-    } else if (secTot > this.userBody.maxOrbitPer) {
+    } else if (secTot > this.userBody.maxOrbitPer && this.userBody.soiRadM) {
       console.log('Too high, setting max per');
       secTot = this.userBody.maxOrbitPer;
       depAp = $form.depMath(secTot);
@@ -126,8 +126,9 @@ $form.zeroInputs = function() {
 };
 
 $form.resultHandler = function() {
-  this.depAp.textContent = ' ' + this.userBody.depAp;
-  this.depPe.textContent = ' ' + this.userBody.targAlt;
+  this.depAp.textContent = ' ' + this.userBody.depAp + ' m';
+  this.depPe.textContent = ' ' + this.userBody.targAlt + ' m';
+  this.targAltResult.textContent = ' ' + this.userBody.targAlt + ' m';
   return this;
 };
 

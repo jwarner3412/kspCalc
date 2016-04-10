@@ -15,6 +15,7 @@ var $form = {
   perInput: document.getElementsByClassName('perInputs'),
   depPe: document.getElementById('depPe'),
   depAp: document.getElementById('depAp'),
+  targAltResult: document.getElementById('targAltResult'),
   optList: []
 };
 
