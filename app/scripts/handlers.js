@@ -135,4 +135,4 @@ $form.resultClear = function() {
   this.depAp.textContent = ' ';
   this.depPe.textContent = ' ';
   return this;
-}
+};

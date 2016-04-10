@@ -1,7 +1,8 @@
 $form.prevDefault = function(evt) {
   evt.preventDefault();
   return this;
-}
+};
+
 $form.eventTriggers = function() {
   // runs complete chain 1 time for default values
   // selects are built on app start
