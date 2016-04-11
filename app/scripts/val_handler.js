@@ -16,19 +16,21 @@ $form.targValHandler = function(callback) {
     console.log('Time parsed from seconds.');
     return secTot;
   };
+
   // fills in form D:H:M:S from an input seconds count and how many seconds
   // are in a bodys day (rotation time)
-  var popTime = function(sec, bodyT) {
-    $form.perSecInput.value = $form.setDec(sec % 60);
-    $form.perMinInput.value = Math.floor((sec % 3600) / 60);
-    $form.perHourInput.value = Math.floor((sec % bodyT) / 3600);
-    $form.perDayInput.value = Math.floor(sec / bodyT);
+  var popTime = function(obj) {
+    var t = obj.target.time;
+    $form.perSecInput.value = t[3];
+    $form.perMinInput.value = t[2];
+    $form.perHourInput.value = t[1];
+    $form.perDayInput.value = t[0];
   };
   var snapShot = function(select) {
     if (this.snapOpt[0] && this.snapOpt[1] &&
     this.snapOpt[2] && this.snapOpt[4]) {
       this.snapOpt[3] = select;
-      this.input = new snapInput(this.snapOpt);
+      this.input = new SnapInput(this.snapOpt);
       console.log('snapShot ' + $form.snapOpt[3]);
     } else {
       console.log('options not yet initialized');
@@ -45,15 +47,15 @@ $form.targValHandler = function(callback) {
     snapShot.call($form, $form.targAltInput.value);
 
     if (this.input.deploy.Ap > this.maxOrbit.deploy.Ap &&
-    this.userBody.soiRadM) {
+    this.snapOpt[0].soiRadM) {
       console.log('Too high, setting maxAlt.');
       this.targAltInput.value = this.setDec(this.maxOrbit.target.altM);
       snapShot.call($form, $form.targAltInput.value);
     }
-    popTime(this.input.target.per, this.userBody.siderealDayS);
+    popTime(this.input);
     console.log('Acceptable altitude. Time set.');
   } else {
-    var bodySec = this.userBody.siderealDayS;
+    var bodySec = this.snapOpt[0].siderealDayS;
     var secTot = parseTime(bodySec);
     if (secTot < this.minOrbit.target.per) {
       console.log('Too low, setting minimum period.');
@@ -61,13 +63,13 @@ $form.targValHandler = function(callback) {
     }
     snapShot.call($form, secTot);
 
-    if (secTot > this.maxOrbit.deploy.per && this.userBody.soiRadM) {
+    if (secTot > this.maxOrbit.deploy.per && this.snapOpt[0].soiRadM) {
       console.log('Too high, setting max period.');
       secTot = this.maxOrbit.deploy.per;
       snapShot.call($form, secTot);
     }
     console.log('Acceptable period. Alt updated.');
-    popTime(secTot, bodySec);
+    popTime(this.input);
     this.targAltInput.value = this.setDec(this.input.target.altM);
   }
   this.resultClear();

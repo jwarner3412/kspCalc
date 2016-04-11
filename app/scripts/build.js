@@ -1,6 +1,7 @@
 var dataList = [];
 var antList;
 var $form = {
+  container: document.getElementsByClassName('calcWrap'),
   instructionButton: document.getElementById('instructionButton'),
   doMaths: document.getElementById('doMaths'),
   solSelect: document.getElementById('solSelect'),
@@ -16,7 +17,7 @@ var $form = {
   perInput: document.getElementsByClassName('perInputs'),
   depPe: document.getElementById('depPe'),
   depAp: document.getElementById('depAp'),
-  targAltResult: document.getElementById('targAltResult'),
+  results: document.getElementById('results'),
   optList: [],
   snapOpt: [0, 0, 0, 0, 0]
 };

@@ -39,8 +39,8 @@ $form.targHandler = function(callback) {
 
 // copys the selected body object from the json dataList for maths
 $form.recordBody = function(callback) {
-  console.log('Caching body.');
-  this.userBody = dataList[this.solSelect.value].bodys[this.bodySelect.value];
+  this.snapOpt[0] = dataList[this.solSelect.value].bodys[this.bodySelect.value];
+  console.dir('Caching body: ' + this.snapOpt[0]);
   if (typeof callback === 'function') {
     callback();
   }
@@ -60,31 +60,11 @@ $form.zeroInputs = function() {
   if (this.satCount.value < 2) {
     this.satCount.value = 2;
   }
-  this.snapOpt[0] = this.userBody;
+
   this.snapOpt[1] = this.precInput.value;
   this.snapOpt[2] = this.satCount.value;
   console.log('Inputs set to 0. snapOpt\'s set: ' +
-    $form.snapOpt[0] + ' ' + $form.snapOpt[1] + ' ' + $form.snapOpt[2]
+    $form.snapOpt[1] + ' ' + $form.snapOpt[2]
   );
-  return this;
-};
-
-$form.resultHandler = function() {
-  this.depAp.textContent = ' ' + this.setDec(this.input.deploy.Ap) + ' m';
-  this.depPe.textContent = ' ' + this.setDec(this.input.deploy.Pe) + ' m';
-  this.targAltResult.textContent = ' ' +
-    this.setDec(this.input.target.altM) + ' m';
-  return this;
-};
-/*
-$form.resultHandler = function() {
-
-};
-*/
-
-$form.resultClear = function() {
-  this.depAp.textContent = ' ';
-  this.depPe.textContent = ' ';
-  this.targAltResult.textContent = ' ';
   return this;
 };

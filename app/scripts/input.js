@@ -1,17 +1,5 @@
-var snapInput = function(snapOpt) {
-  var body = snapOpt[0];
-  var prec = parseFloat(snapOpt[1]);
-  var satCnt = parseInt(snapOpt[2], 10);
-  var known = parseFloat(snapOpt[3]);
-  var type = snapOpt[4];
-  var rad = body.radiusM;
-  var mu = body.MUms3;
-
+var SnapInput = function(snapOpt) {
   this.math = {};
-  this.target = {};
-  this.deploy = {};
-  this.satInfo = {};
-
   this.math.calcSMA = function(alt, bodyRad) {
     var sma = (((2 * alt) + (2 * bodyRad)) / 2);
     return sma;
@@ -31,18 +19,41 @@ var snapInput = function(snapOpt) {
     var a = perPow * muPow / piPow - rp;
     return a;
   };
+  this.math.parseSec = function(s, bodyT) {
+    var sec = Math.floor((s % 60) * 1000) / 1000;
+    var min = Math.floor((s % 3600) / 60);
+    var hour = Math.floor((s % bodyT) / 3600);
+    var day = Math.floor(s / bodyT);
+    var time = [day, hour, min, sec];
+    return time;
+  };
+
+  this.body = {};
+  this.body = snapOpt[0];
+  var prec = parseFloat(snapOpt[1]);
+  var satCnt = parseInt(snapOpt[2], 10);
+  var known = parseFloat(snapOpt[3]);
+  var type = snapOpt[4];
+
+  var rad = this.body.radiusM;
+  var mu = this.body.MUms3;
+  var dayS = this.body.siderealDayS;
 
   if (type !== 'alt') {
     known = this.math.calcRa(known, rad, mu, 2);
   }
 
+  this.target = {};
   this.target.altM = known;
   this.target.semiMajAxis = this.math.calcSMA(known, rad);
   this.target.per = this.math.calcPER(this.target.semiMajAxis, mu);
+  this.target.time = this.math.parseSec(this.target.per, dayS);
   this.target.orbSpeed = Math.sqrt(mu * (1 / this.target.semiMajAxis));
 
+  this.deploy = {};
   this.deploy.ratio = 1 + 1 / satCnt;
   this.deploy.per = this.target.per * this.deploy.ratio;
+  this.deploy.time = this.math.parseSec(this.deploy.per, dayS);
   this.deploy.Rp = this.target.semiMajAxis;
   this.deploy.Ra = this.math.calcRa(this.deploy.per, this.deploy.Rp, mu);
   this.deploy.semiMajAxis = (this.deploy.Rp + this.deploy.Ra) / 2;
@@ -51,4 +62,6 @@ var snapInput = function(snapOpt) {
   var a = (2 / this.deploy.Rp - 1 / this.deploy.semiMajAxis);
   this.deploy.obtSpdPE = Math.sqrt(mu * a);
   this.deploy.circDVreq = this.target.orbSpeed - this.deploy.obtSpdPE;
+
+  this.satInfo = {};
 };

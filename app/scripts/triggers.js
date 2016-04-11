@@ -55,7 +55,12 @@ $form.eventTriggers = function() {
 // buttons
   $form.doMaths.addEventListener('click', function(evt) {
     evt.preventDefault();
-    $form.resultHandler();
+    $form.resultHandler($form.input);
+  });
+
+  $form.instructionButton.addEventListener('click', function(evt) {
+    evt.preventDefault();
+    alert('Not working yet!');
   });
 
   console.log('Event listeners set.');

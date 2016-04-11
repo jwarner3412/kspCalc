@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
+    <meta name="description" content="Calculator for Kerbal Space Program that determines deployment and final orbit parameters for an evenly spaced satellite network. Stock and RSS/RO support. Includes RemoteTech antenna information. For single launch of a several satellites. ">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>kSp Sat-Net-SpacEr-oUteR</title>
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
@@ -37,13 +37,13 @@
   </head>
   <body>
     <!-- Add your site or app content here -->
-    <div class="container">
+    <div class="calcWrap">
       <div class="adHead"></div>
       <h1>Kerbal Space Program</h1>
-      <h2>Satellite Network Deployment Calculator</h2>
+      <h2>kSp Sat-Net-SpacEr-oUteR</h2>
       <form action="">
         <table id="perInputTable">
-          <button id="instructionButton">Instruction</button>
+          <button id="instructionButton">Instructions</button>
           <tbody>
             <tr>
               <td colspan="2">System</td>
@@ -86,21 +86,10 @@
             <tr>
               <td colspan="4"><input type="submit" id="doMaths" value="Do Maths!"></td>
             </tr>
-            <tr>
-              <td colspan="2" class="results label">Deployment Apoapsis:</td>
-              <td colspan="2" class="results" id="depAp"></td>
-            </tr>
-            <tr>
-              <td colspan="2" class="results label">Deployment Periapsis:</td>
-              <td colspan="2" class="results" id="depPe"></td>
-            </tr>
-            <tr>
-              <td colspan="2" class="results label">Final Altitude:</td>
-              <td colspan="2" class="results" id="targAltResult"></td>
-            </tr>
           </tbody>
         </table>
       </form>
+      <div id="results"></div>
     </div>
     <script src="./scripts/main.min.js"></script>
   </body>

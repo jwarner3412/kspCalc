@@ -69,12 +69,11 @@ input {
   padding-left: 1em;
 }
 
-.results {
-  text-align: left;
-  padding-left: 1em;
+#results {
+  text-align: center;
+  padding: 1em;
 }
-
-.results.label {
-  padding-right: 1em;
-  text-align: right;
+#results table {
+  margin: 0 auto;
+  padding: 1em;
 }

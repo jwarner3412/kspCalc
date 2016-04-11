@@ -15,8 +15,10 @@ $form.minMath = function() {
   var minPE = body.minPE;
   var precInput = parseFloat(this.snapOpt[1]);
   var satCount = parseInt(this.snapOpt[2], 10);
+
   var rads = Math.radians(180 / satCount + precInput);
   var minAlt = Math.max(Math.ceil(bodyR / Math.cos(rads) - bodyR), minPE);
+
   var minOpts = [
     body,
     precInput,
@@ -24,7 +26,8 @@ $form.minMath = function() {
     minAlt,
     'alt'
   ];
-  this.minOrbit = new snapInput(minOpts);
+
+  this.minOrbit = new SnapInput(minOpts);
   console.log('minOrbit calculated: ' + $form.minOrbit.target.altM);
 
   var ratio = 1 + 1 / satCount;
@@ -33,7 +36,9 @@ $form.minMath = function() {
     var perSecTot = 2 * Math.PI * Math.sqrt(tSM / b.MUms3);
     return perSecTot;
   })(maxAP, body);
+
   var maxPer = (maxCircPer / ratio) / ratio;
+
   var maxOpts = [
     body,
     precInput,
@@ -41,7 +46,9 @@ $form.minMath = function() {
     maxPer,
     'per'
   ];
-  this.maxOrbit = new snapInput(maxOpts);
+
+  this.maxOrbit = new SnapInput(maxOpts);
   console.log('maxOrbit calculated: ' + $form.maxOrbit.target.altM);
+
   return this;
 };
