@@ -43,43 +43,35 @@
       <h1>Kerbal Space Program</h1>
       <h2>Satellite Network Deployment Calculator</h2>
       <form action="">
-        <table id="mainInputTable">
-          <thead><button id="instructionButton">Instruction</button></thead>
+        <table id="perInputTable">
+          <button id="instructionButton">Instruction</button>
           <tbody>
             <tr>
-              <td>System</td>
-              <td>Body</td>
+              <td colspan="2">System</td>
+              <td colspan="2">Body</td>
             </tr>
             <tr>
-              <td><select name="solSelect" id="solSelect"></select></td>
-              <td><select name="bodySelect" id="bodySelect"></select></td>
+              <td colspan="2"><select name="solSelect" id="solSelect"></select></td>
+              <td colspan="2"><select name="bodySelect" id="bodySelect"></select></td>
             </tr>
             <tr>
-              <td>Placement Precision</td>
-              <td># of Sats</td>
+              <td colspan="2">Placement Precision</td>
+              <td colspan="2"># of Sats</td>
             </tr>
             <tr>
-              <td><input type="number" id="precInput" name="precInput" value="0.01"></td>
-              <td><input type="number" id="satCount" name="satCount" value="3" min="2"></td>
+              <td colspan="2"><input type="number" id="precInput" name="precInput" value="0.01"></td>
+              <td colspan="2"><input type="number" id="satCount" name="satCount" value="3" min="2"></td>
             </tr>
             <tr>
-              <td colspan="2"><select name="targBySelect" id="targBySelect">
+              <td colspan="4"><select name="targBySelect" id="targBySelect">
                 <option value="alt">Target Altitude</option>
                 <option value="per">Target Period</option>
               </select></td>
             </tr>
-          </tbody>
-        </table>
-        <table id="altInputTable">
-          <tbody>
             <tr>
-              <td>Circ (m):</td>
-              <td><input type="number" id="targAltInput" name="targAltInput"></td>
+              <td colspan="2" id="altLabel">Circ (m):</td>
+              <td colspan="2" id="altInputCell"><input type="number" id="targAltInput" name="targAltInput"></td>
             </tr>
-          </tbody>
-        </table>
-        <table id="perInputTable">
-          <tbody>
             <tr>
               <td>Days</td>
               <td>Hours</td>
@@ -96,15 +88,15 @@
               <td colspan="4"><input type="submit" id="doMaths" value="Do Maths!"></td>
             </tr>
             <tr>
-              <td colspan="2" class="results">Deployment Apoapsis:</td>
+              <td colspan="2" class="results label">Deployment Apoapsis:</td>
               <td colspan="2" class="results" id="depAp"></td>
             </tr>
             <tr>
-              <td colspan="2" class="results">Deployment Periapsis:</td>
+              <td colspan="2" class="results label">Deployment Periapsis:</td>
               <td colspan="2" class="results" id="depPe"></td>
             </tr>
             <tr>
-              <td colspan="2" class="results">Final Circular Orbit:</td>
+              <td colspan="2" class="results label">Final Altitude:</td>
               <td colspan="2" class="results" id="targAltResult"></td>
             </tr>
           </tbody>

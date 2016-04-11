@@ -114,6 +114,7 @@ gulp.task('scripts', () =>
       './app/scripts/input.js',
       './app/scripts/maths.js',
       './app/scripts/handlers.js',
+      './app/scripts/val_handler.js',
       './app/scripts/triggers.js',
       './app/scripts/app.js',
       './app/scripts/main.js'

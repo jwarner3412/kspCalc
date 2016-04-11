@@ -1,4 +1,5 @@
 var snapInput = function(snapOpt) {
+  console.log(snapOpt);
   var body = snapOpt[0];
   var prec = parseFloat(snapOpt[1]);
   var satCnt = parseInt(snapOpt[2], 10);

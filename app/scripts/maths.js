@@ -6,12 +6,12 @@ Math.radians = function(degrees) {
 // calculates minimum orbit based on satCount and body parameters
 // sets min period and alt in userBody
 $form.minMath = function() {
-  var body = this.userBody;
+  var body = this.snapOpt[0];
   var bodyR = body.radiusM;
   var maxAP = body.soiRadM;
   var minPE = body.minPE;
-  var satCount = this.satCount.value;
-  var precInput = this.precInput.value;
+  var precInput = parseFloat(this.snapOpt[1]);
+  var satCount = parseInt(this.snapOpt[2], 10);
   var rads = Math.radians(180 / satCount + precInput);
   var minAlt = Math.max(Math.ceil(bodyR / Math.cos(rads) - bodyR), minPE);
   var minOpts = [
@@ -40,6 +40,5 @@ $form.minMath = function() {
   ];
   this.maxOrbit = new snapInput(maxOpts);
   console.log('maxOrbit calculated: ' + $form.maxOrbit.target.altM);
-
   return this;
 };

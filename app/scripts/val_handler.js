@@ -39,7 +39,8 @@ $form.targValHandler = function(callback) {
     if (this.targAltInput.value < this.minOrbit.target.altM ||
     !this.targAltInput.value) {
       console.log('Too low, setting minAlt.');
-      this.targAltInput.value = this.minOrbit.target.altM;
+      this.targAltInput.value = Math.ceil(
+        this.minOrbit.target.altM * 1000) / 1000;
     }
 
     snapShot.call($form, $form.targAltInput.value);
@@ -47,7 +48,8 @@ $form.targValHandler = function(callback) {
     if (this.input.deploy.Ap > this.maxOrbit.deploy.Ap &&
     this.userBody.soiRadM) {
       console.log('Too high, setting maxAlt.');
-      this.targAltInput.value = this.maxOrbit.target.altM;
+      this.targAltInput.value = Math.floor(
+        this.maxOrbit.target.altM * 1000) / 1000;
       snapShot.call($form, $form.targAltInput.value);
     }
     popTime(this.input.target.per, this.userBody.siderealDayS);
@@ -68,10 +70,11 @@ $form.targValHandler = function(callback) {
     }
     console.log('Acceptable period. Alt updated.');
     popTime(secTot, bodySec);
-    this.targAltInput.value = this.input.target.altM;
+    this.targAltInput.value = Math.floor(this.input.target.altM * 1000) / 1000;
   }
   if (typeof callback === 'function') {
     callback();
   }
+  this.resultClear();
   return this;
 };

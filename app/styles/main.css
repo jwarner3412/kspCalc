@@ -21,10 +21,18 @@ will be correctly compiled during `gulp serve` and `gulp`
 
 html, body {
   font-family: 'Roboto', 'Helvetica', sans-serif;
-  margin: 0;
-  padding: 0;
+  text-align: center;
+  margin-top: 7.5vh;
 }
-
+form {
+  text-align: center;
+}
+td {
+  padding: 0.1em 0;
+}
+#perInputTable {
+  margin: 0 auto;
+}
 .perInputs {
   width: 2.5em;
 }
@@ -41,4 +49,23 @@ html, body {
 
 #precInput {
   width: 3em;
+}
+
+#altLabel {
+  text-align: right;
+  padding-right: 1em;
+}
+
+#altInputCell {
+  text-align: left;
+  padding-left: 1em;
+}
+.results {
+  text-align: left;
+  padding-left: 1em;
+}
+
+.results.label {
+  padding-right: 1em;
+  text-align: right;
 }
