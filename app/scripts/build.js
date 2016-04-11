@@ -1,4 +1,5 @@
-var dataList;
+var dataList = [];
+var antList;
 var $form = {
   instructionButton: document.getElementById('instructionButton'),
   doMaths: document.getElementById('doMaths'),
@@ -25,11 +26,15 @@ $form.importData = function(url, callback) {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState === XMLHttpRequest.DONE) {
-      dataList = JSON.parse(xhr.responseText);
-      console.log('data parsed');
-      callback.call($form);
+      var list = JSON.parse(xhr.responseText);
+      console.log(url + ' JSON data parsed.');
+      if (typeof callback === 'function') {
+        callback(list);
+      } else {
+        return list;
+      }
     } else {
-      console.log('Elevator music...');
+      console.log(url + ' Elevator music...');
     }
   };
   xhr.open('GET', url, true);
@@ -41,7 +46,8 @@ $form.importData = function(url, callback) {
 // a sun or moon and sets a -/* accordingly), values for array lookups(option
 // value is the key value of the corresponding bodydata object), and adds to
 // either array or html select
-$form.selectBuild = function(callback) {
+$form.selectBuild = function(list, callback) {
+  dataList = list;
   function crtOpt(val, txt, addLoc) {
     var option = document.createElement('option');
     option.value = val;
@@ -54,6 +60,7 @@ $form.selectBuild = function(callback) {
       console.log('fail');
     }
   }
+
   dataList.forEach(function(obj, index) {
     crtOpt(index, obj.name, this.solSelect);
     var bodyList = [];
@@ -71,6 +78,7 @@ $form.selectBuild = function(callback) {
   console.log('Building select options from JSON data.');
   if (typeof callback === 'function') {
     callback();
+  } else {
+    return this;
   }
-  return this;
 };

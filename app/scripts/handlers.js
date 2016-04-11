@@ -70,14 +70,17 @@ $form.zeroInputs = function() {
 };
 
 $form.resultHandler = function() {
-  this.depAp.textContent = ' ' + Math.floor(
-    this.input.deploy.Ap * 1000) / 1000 + ' m';
-  this.depPe.textContent = ' ' + Math.floor(
-    this.input.deploy.Pe * 1000) / 1000 + ' m';
-  this.targAltResult.textContent = ' ' + Math.floor(
-    this.input.target.altM * 1000) / 1000 + ' m';
+  this.depAp.textContent = ' ' + this.setDec(this.input.deploy.Ap) + ' m';
+  this.depPe.textContent = ' ' + this.setDec(this.input.deploy.Pe) + ' m';
+  this.targAltResult.textContent = ' ' +
+    this.setDec(this.input.target.altM) + ' m';
   return this;
 };
+/*
+$form.resultHandler = function() {
+
+};
+*/
 
 $form.resultClear = function() {
   this.depAp.textContent = ' ';

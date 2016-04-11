@@ -3,6 +3,9 @@ Math.radians = function(degrees) {
   return degrees * Math.PI / 180;
 };
 
+$form.setDec = function(value) {
+  return Math.floor(value * 1000) / 1000;
+};
 // calculates minimum orbit based on satCount and body parameters
 // sets min period and alt in userBody
 $form.minMath = function() {

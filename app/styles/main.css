@@ -30,15 +30,23 @@ form {
 td {
   padding: 0.1em 0;
 }
+
+input {
+  text-align: center;
+}
+
 #perInputTable {
   margin: 0 auto;
 }
+
 .perInputs {
   width: 2.5em;
 }
+
 #perSecInput {
   width: 7.5em;
 }
+
 #targAltInput {
   width: 10em;
 }
@@ -60,6 +68,7 @@ td {
   text-align: left;
   padding-left: 1em;
 }
+
 .results {
   text-align: left;
   padding-left: 1em;

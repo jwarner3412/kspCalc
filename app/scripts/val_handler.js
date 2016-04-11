@@ -19,7 +19,7 @@ $form.targValHandler = function(callback) {
   // fills in form D:H:M:S from an input seconds count and how many seconds
   // are in a bodys day (rotation time)
   var popTime = function(sec, bodyT) {
-    $form.perSecInput.value = Math.floor((sec % 60) * 1000) / 1000;
+    $form.perSecInput.value = $form.setDec(sec % 60);
     $form.perMinInput.value = Math.floor((sec % 3600) / 60);
     $form.perHourInput.value = Math.floor((sec % bodyT) / 3600);
     $form.perDayInput.value = Math.floor(sec / bodyT);
@@ -39,8 +39,7 @@ $form.targValHandler = function(callback) {
     if (this.targAltInput.value < this.minOrbit.target.altM ||
     !this.targAltInput.value) {
       console.log('Too low, setting minAlt.');
-      this.targAltInput.value = Math.ceil(
-        this.minOrbit.target.altM * 1000) / 1000;
+      this.targAltInput.value = this.setDec(this.minOrbit.target.altM);
     }
 
     snapShot.call($form, $form.targAltInput.value);
@@ -48,8 +47,7 @@ $form.targValHandler = function(callback) {
     if (this.input.deploy.Ap > this.maxOrbit.deploy.Ap &&
     this.userBody.soiRadM) {
       console.log('Too high, setting maxAlt.');
-      this.targAltInput.value = Math.floor(
-        this.maxOrbit.target.altM * 1000) / 1000;
+      this.targAltInput.value = this.setDec(this.maxOrbit.target.altM);
       snapShot.call($form, $form.targAltInput.value);
     }
     popTime(this.input.target.per, this.userBody.siderealDayS);
@@ -70,11 +68,11 @@ $form.targValHandler = function(callback) {
     }
     console.log('Acceptable period. Alt updated.');
     popTime(secTot, bodySec);
-    this.targAltInput.value = Math.floor(this.input.target.altM * 1000) / 1000;
+    this.targAltInput.value = this.setDec(this.input.target.altM);
   }
+  this.resultClear();
   if (typeof callback === 'function') {
     callback();
   }
-  this.resultClear();
   return this;
 };
