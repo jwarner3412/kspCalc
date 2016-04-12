@@ -2,12 +2,12 @@
 Math.radians = function(degrees) {
   return degrees * Math.PI / 180;
 };
-
+// sets numbers to 3 decimal places
 $form.setDec = function(value) {
   return Math.floor(value * 1000) / 1000;
 };
-// calculates minimum orbit based on satCount and body parameters
-// sets min period and alt in userBody
+// calculates minimum & max orbit based on satCount and body parameters
+// does math, and snapShots a minOrbit obj and maxOrbit obj
 $form.minMath = function() {
   var body = this.snapOpt[0];
   var bodyR = body.radiusM;

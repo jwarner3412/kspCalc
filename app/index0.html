@@ -36,46 +36,86 @@
     -->
   </head>
   <body>
-    <!-- Add your site or app content here -->
+    <div class="ad">
+      <script type="text/javascript">
+        ( function() {
+          if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
+          var unit = {"calltype":"async[2]","publisher":"jwarner3412","width":550,"height":120,"sid":"Chitika Default"};
+          var placement_id = window.CHITIKA.units.length;
+          window.CHITIKA.units.push(unit);
+          document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
+      }());
+      </script>
+      <script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+    </div>
+
     <div class="calcWrap">
-      <div class="adHead"></div>
       <h1>Kerbal Space Program</h1>
       <h2>kSp Sat-Net-SpacEr-oUteR</h2>
       <form action="">
-        <table id="perInputTable">
-          <button id="instructionButton">Instructions</button>
+        <table>
           <tbody>
             <tr>
-              <td colspan="2">System</td>
-              <td colspan="2">Body</td>
+              <td colspan="2">
+                <label for="solSelect">System</label>
+              </td>
+              <td colspan="2">
+                <label for="bodySelect">Body</label>
+              </td>
             </tr>
             <tr>
-              <td colspan="2"><select name="solSelect" id="solSelect"></select></td>
-              <td colspan="2"><select name="bodySelect" id="bodySelect"></select></td>
+              <td colspan="2">
+                <select name="solSelect" id="solSelect"></select>
+              </td>
+              <td colspan="2">
+                <select name="bodySelect" id="bodySelect"></select>
+              </td>
             </tr>
             <tr>
-              <td colspan="2">Placement Precision</td>
-              <td colspan="2"># of Sats</td>
+              <td colspan="2">
+                <label for="precInput">Precision</label>
+              </td>
+              <td colspan="2">
+                <label for="satCount"># of Sats</label>
+              </td>
             </tr>
             <tr>
-              <td colspan="2"><input type="number" id="precInput" name="precInput" value="0.01"></td>
-              <td colspan="2"><input type="number" id="satCount" name="satCount" value="3" min="2"></td>
+              <td colspan="2">
+                <input type="number" id="precInput" name="precInput" value="0.01">
+              </td>
+              <td colspan="2">
+                <input type="number" id="satCount" name="satCount" value="3" min="2">
+              </td>
             </tr>
             <tr>
-              <td colspan="4"><select name="targBySelect" id="targBySelect">
-                <option value="alt">Target Altitude</option>
-                <option value="per">Target Period</option>
-              </select></td>
+              <td colspan="4">
+                <select name="targBySelect" id="targBySelect">
+                  <option value="alt">Target Altitude</option>
+                  <option value="per">Target Period</option>
+                </select>
+              </td>
             </tr>
             <tr>
-              <td colspan="2" id="altLabel">Circ (m):</td>
-              <td colspan="2" id="altInputCell"><input type="number" id="targAltInput" name="targAltInput"></td>
+              <td colspan="2">
+                <label for="targAltInput">Circ (m):</label>
+              </td>
+              <td colspan="2">
+                <input type="number" id="targAltInput" name="targAltInput">
+              </td>
             </tr>
             <tr>
-              <td>Days</td>
-              <td>Hours</td>
-              <td>Minutes</td>
-              <td>Seconds</td>
+              <td>
+                <label for="perDayInput">Days</label>
+              </td>
+              <td>
+                <label for="perHourInput">Hours</label>
+              </td>
+              <td>
+                <label for="perMinInput">Minutes</label>
+              </td>
+              <td>
+                <label for="perSecInput">Seconds</label>
+              </td>
             </tr>
             <tr>
               <td><input type="number" name="perDayInput" class="perInputs" id="perDayInput"></td>
@@ -83,13 +123,28 @@
               <td><input type="number" name="perMinInput" class="perInputs" id="perMinInput"></td>
               <td><input type="number" name="perSecInput" class="perInputs" id="perSecInput"></td>
             </tr>
-            <tr>
-              <td colspan="4"><input type="submit" id="doMaths" value="Do Maths!"></td>
-            </tr>
+            <td colspan="2">
+              <button id="instructionButton">Instructions</button>
+            </td>
+            <td colspan="2">
+              <button id="doMaths">Do Maths!</button>
+            </td>
           </tbody>
         </table>
       </form>
       <div id="results"></div>
+    </div>
+    <div class="ad">
+      <script type="text/javascript">
+        ( function() {
+          if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
+          var unit = {"calltype":"async[2]","publisher":"jwarner3412","width":550,"height":250,"sid":"Chitika Default"};
+          var placement_id = window.CHITIKA.units.length;
+          window.CHITIKA.units.push(unit);
+          document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
+      }());
+      </script>
+      <script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
     </div>
     <script src="./scripts/main.min.js"></script>
   </body>

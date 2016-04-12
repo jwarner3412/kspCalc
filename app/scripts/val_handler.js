@@ -12,13 +12,12 @@ $form.targValHandler = function(callback) {
     var min = parseInt($form.perMinInput.value, 10) * 60;
     var hour = parseInt($form.perHourInput.value, 10) * 3600;
     var day = parseInt($form.perDayInput.value, 10) * bodyT;
-    var secTot = sec + min + hour + day;
+    sec += min + hour + day;
     console.log('Time parsed from seconds.');
-    return secTot;
+    return sec;
   };
 
-  // fills in form D:H:M:S from an input seconds count and how many seconds
-  // are in a bodys day (rotation time)
+  // fills in form D:H:M:S from the time array
   var popTime = function(obj) {
     var t = obj.target.time;
     $form.perSecInput.value = t[3];
@@ -26,6 +25,7 @@ $form.targValHandler = function(callback) {
     $form.perHourInput.value = t[1];
     $form.perDayInput.value = t[0];
   };
+  // takes input snapShot and does maths
   var snapShot = function(select) {
     if (this.snapOpt[0] && this.snapOpt[1] &&
     this.snapOpt[2] && this.snapOpt[4]) {
@@ -37,6 +37,7 @@ $form.targValHandler = function(callback) {
     }
     return this;
   };
+  // if alt selected, if < minalt, if > maxalt, updates opposite input field
   if (this.snapOpt[4] === 'alt') {
     if (this.targAltInput.value < this.minOrbit.target.altM ||
     !this.targAltInput.value) {

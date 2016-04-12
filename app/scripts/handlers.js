@@ -37,7 +37,7 @@ $form.targHandler = function(callback) {
   return this;
 };
 
-// copys the selected body object from the json dataList for maths
+// copys the selected body object from the json dataList into the snapOpt[0] for maths
 $form.recordBody = function(callback) {
   this.snapOpt[0] = dataList[this.solSelect.value].bodys[this.bodySelect.value];
   console.dir('Caching body: ' + this.snapOpt[0]);
@@ -48,7 +48,7 @@ $form.recordBody = function(callback) {
 };
 
 // zeros the appropriate input field for default minimum value on "major" value
-// changes ie body, sol, placementPrecision, satCount
+// changes ie body, sol, placementPrecision, satCount. sets snapOpt accordingly
 $form.zeroInputs = function() {
   if (this.targBySelect.value === 'alt') {
     this.targAltInput.value = 0;

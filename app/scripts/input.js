@@ -1,13 +1,19 @@
+// constructor function for input maths
+// need to prototype those math functions i think
+
 var SnapInput = function(snapOpt) {
   this.math = {};
+  // Semi-Major-Axis
   this.math.calcSMA = function(alt, bodyRad) {
     var sma = (((2 * alt) + (2 * bodyRad)) / 2);
     return sma;
   };
+  // Period
   this.math.calcPER = function(sma, Mu) {
     var p = 2 * Math.PI * Math.sqrt(Math.pow(sma, 3) / Mu);
     return p;
   };
+  // Ra (for deployment orbit math)
   this.math.calcRa = function(per, rp, Mu, mply) {
     var muu = 2 * Mu;
     var muPow = Math.pow(muu, 1 / 3);
@@ -19,6 +25,7 @@ var SnapInput = function(snapOpt) {
     var a = perPow * muPow / piPow - rp;
     return a;
   };
+  // intakes seconds, outputs d:h:m:s in an array
   this.math.parseSec = function(s, bodyT) {
     var sec = Math.floor((s % 60) * 1000) / 1000;
     var min = Math.floor((s % 3600) / 60);

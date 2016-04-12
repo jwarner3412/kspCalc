@@ -60,7 +60,7 @@ $form.eventTriggers = function() {
 
   $form.instructionButton.addEventListener('click', function(evt) {
     evt.preventDefault();
-    alert('Not working yet!');
+    alert('Nothing here yet! RSS is broken too! ;)');
   });
 
   console.log('Event listeners set.');

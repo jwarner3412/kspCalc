@@ -1,5 +1,8 @@
+// json body and system info
 var dataList = [];
+// remotetech antenna json info
 var antList;
+// main ish
 var $form = {
   container: document.getElementsByClassName('calcWrap'),
   instructionButton: document.getElementById('instructionButton'),
@@ -61,7 +64,7 @@ $form.selectBuild = function(list, callback) {
       console.log('fail');
     }
   }
-
+// creates opt and stores in an array
   dataList.forEach(function(obj, index) {
     crtOpt(index, obj.name, this.solSelect);
     var bodyList = [];

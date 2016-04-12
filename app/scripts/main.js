@@ -1,3 +1,5 @@
+// nothing to see here
+// css append is the only thing here that i did
 (function() {
   var cssString = document.createElement('link');
   cssString.rel = 'stylesheet';
@@ -5,25 +7,7 @@
   cssString.href = 'styles/main.css';
   document.head.appendChild(cssString);
 })();
-/*!
- *
- *  Web Starter Kit
- *  Copyright 2015 Google Inc. All rights reserved.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *    https://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License
- *
- */
-/* eslint-env browser */
+
 (function() {
   'use strict';
 
@@ -88,6 +72,14 @@
 
   // Your custom JavaScript goes here
 })();
+
+var vglnk = { key: '9c1c9c3af2b6bbade7ed3a0281ffae18' };
+
+(function(d, t) {
+  var s = d.createElement(t); s.type = 'text/javascript'; s.async = true;
+  s.src = '//cdn.viglink.com/api/vglnk.js';
+  var r = d.getElementsByTagName(t)[0]; r.parentNode.insertBefore(s, r);
+})(document, 'script');
 
 (function(i, s, o, g, r, a, m) {
   i['GoogleAnalyticsObject'] = r;

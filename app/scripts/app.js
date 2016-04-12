@@ -10,6 +10,7 @@
 })();
 
 // antenna info for the results page
+// ends at import, dont have handler yet
 (function() {
   antList = $form.importData('./ant.json');
 })();
