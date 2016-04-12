@@ -222,7 +222,7 @@
 		"siderealOrbitS": 156992048.4,
 		"synodicDayS": 19462.41
 	}]}, {
-	"name": "RealSolarSystem",
+	"name": "RSS/RO",
 	"bodys": [{
 		"orbits": 0,
 		"bodyName": "Sun",

@@ -74,9 +74,11 @@ $form.resultHandler = function(inputObj) {
     tString += tEnd;
     this.tString = tString;
   };
-
   this.snapRes = new HtmlResult(inputObj);
   var fullString = this.snapRes.dString + this.snapRes.tString;
+  fullString += '<div class="buttWrap">';
+  fullString += '<a href="http://paypal.me/jwarner3412/1.99">';
+  fullString += 'If you like the app, please donate</a> </div>';
   document.getElementById('results').innerHTML = fullString;
 };
 

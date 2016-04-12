@@ -1,5 +1,5 @@
 // not complete
-
+/*
 var antHander = function(obj) {
   for (var key in obj) {
     console.log(key);
@@ -13,3 +13,4 @@ var antHander = function(obj) {
 }
 
 antHander(ant);
+*/

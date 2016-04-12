@@ -21,6 +21,8 @@ var $form = {
   depPe: document.getElementById('depPe'),
   depAp: document.getElementById('depAp'),
   results: document.getElementById('results'),
+  help: document.getElementById('helpWrap'),
+  helpClose: document.getElementById('helpClose'),
   optList: [],
   snapOpt: [0, 0, 0, 0, 0]
 };

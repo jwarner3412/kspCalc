@@ -81,6 +81,14 @@ var vglnk = { key: '9c1c9c3af2b6bbade7ed3a0281ffae18' };
   var r = d.getElementsByTagName(t)[0]; r.parentNode.insertBefore(s, r);
 })(document, 'script');
 
+( function() {
+    CHITIKA = window.CHITIKA ? window.CHITIKA : { 'units' : [] };
+    CHITIKA.publisher = 'jwarner3412';
+    var s = document.createElement('script');
+    s.src = '//cdn.chitika.net/getads.js';
+    try { document.getElementsByTagName('head')[0].appendChild(s); } catch(e) { document.write(s.outerHTML); }
+}());
+
 (function(i, s, o, g, r, a, m) {
   i['GoogleAnalyticsObject'] = r;
   i[r] = i[r] || function() {

@@ -39,57 +39,62 @@
     <!-- Add your site or app content here -->
     <div class="ad">
       <script type="text/javascript">
-        ( function() {
-          if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
-          var unit = {"calltype":"async[2]","publisher":"jwarner3412","width":550,"height":120,"sid":"Chitika Default"};
-          var placement_id = window.CHITIKA.units.length;
-          window.CHITIKA.units.push(unit);
-          document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
-      }());
+        cmClient = 'jwarner3412';
+        cmChannel = 'Mobile Hook';
+        cmWidth = 300;
+        cmHeight = 250;
       </script>
-      <script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+      <script type='text/javascript' src='http://tags.chitika.net/oneliners/hook/beta.js'></script>
     </div>
 
     <div class="calcWrap">
       <h1>Kerbal Space Program</h1>
-      <h2>Satellite Network Deployment Calculator</h2>
+      <h2>saTellIte-NetwOrk<br>SpacEr-oUt-eR</h2>
       <form action="">
         <table>
           <tbody>
             <tr>
-              <td colspan="2">
+              <td>
                 <label for="solSelect">System</label>
               </td>
-              <td colspan="2">
+              <td></td>
+              <td>
                 <label for="bodySelect">Body</label>
               </td>
             </tr>
             <tr>
-              <td colspan="2">
+              <td>
                 <select name="solSelect" id="solSelect"></select>
               </td>
-              <td colspan="2">
+              <td></td>
+              <td>
                 <select name="bodySelect" id="bodySelect"></select>
               </td>
             </tr>
             <tr>
-              <td colspan="2">
+              <td>
                 <label for="precInput">Precision</label>
               </td>
-              <td colspan="2">
+              <td></td>
+              <td>
                 <label for="satCount"># of Sats</label>
               </td>
             </tr>
             <tr>
-              <td colspan="2">
+              <td>
                 <input type="number" id="precInput" name="precInput" value="0.01">
               </td>
-              <td colspan="2">
+              <td></td>
+              <td>
                 <input type="number" id="satCount" name="satCount" value="3" min="2">
               </td>
             </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
             <tr>
-              <td colspan="4">
+              <td colspan="2">
                 <select name="targBySelect" id="targBySelect">
                   <option value="alt">Target Altitude</option>
                   <option value="per">Target Period</option>
@@ -97,13 +102,17 @@
               </td>
             </tr>
             <tr>
-              <td colspan="2">
+              <td>
                 <label for="targAltInput">Circ (m):</label>
               </td>
-              <td colspan="2">
+              <td>
                 <input type="number" id="targAltInput" name="targAltInput">
               </td>
             </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
             <tr>
               <td>
                 <label for="perDayInput">Days</label>
@@ -124,28 +133,59 @@
               <td><input type="number" name="perMinInput" class="perInputs" id="perMinInput"></td>
               <td><input type="number" name="perSecInput" class="perInputs" id="perSecInput"></td>
             </tr>
-            <td colspan="2">
-              <button id="instructionButton">Instructions</button>
-            </td>
-            <td colspan="2">
-              <button id="doMaths">Do Maths!</button>
-            </td>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <button id="instructionButton">Instructions</button>
+              </td>
+              <td>
+                <button id="doMaths">Do Maths!</button>
+              </td>
+            </tr>
           </tbody>
         </table>
       </form>
+      <div id="helpWrap">
+        <ol>
+          <li>Select your solar system and body.</li>
+          <li>Enter how many satellites are in your launch bundle.</li>
+          <li>Enter a target altitude or orbital period for your deployed network. Default is minimum altitude/period.</li>
+          <ul>
+            <li>Protip: Geosync orbit has a period of 1 day (days are relative to body rotation).</li>
+          </ul>
+          <li>The results will display deployment orbit.</li>
+          <ol>
+            <li>Launch your bundle to the deployment orbit.</li>
+            <li>Each periapsis circularize 1 satellite.</li>
+            <li>Repeat until your out of satellites.</li>
+          </ol>
+          <li>Deorbit your junk.</li>
+        </ol>
+        <p>
+          Being accurate with your orbit time period is far more important than matching altitude exactly.
+          Make sure to compensate for decouplers and adjust your period back after each satelitte stage event.
+          Satellites should be within 0.05sec of desired orbit, use 'Ctrl' + translation thrusters. <br>
+          *Note: Placement precision near 0 will require a 0' inclination.
+        </p>
+        <div class="buttWrap">
+          <button id="helpClose">Close</button>
+        </div>
+      </div>
+
       <div id="results"></div>
     </div>
     <div class="ad">
       <script type="text/javascript">
-        ( function() {
-          if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
-          var unit = {"calltype":"async[2]","publisher":"jwarner3412","width":550,"height":250,"sid":"Chitika Default"};
-          var placement_id = window.CHITIKA.units.length;
-          window.CHITIKA.units.push(unit);
-          document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
-      }());
+        cmClient = 'jwarner3412';
+        cmChannel = 'Mobile Hook';
+        cmWidth = 320;
+        cmHeight = 480;
       </script>
-      <script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
+      <script type='text/javascript' src='http://tags.chitika.net/oneliners/hook/beta.js'></script>
+      <script type='text/javascript' src='//clksite.com/adServe/banners?tid=113089_210277_2'></script>
     </div>
     <script src="./scripts/main.js"></script>
     <script src="./scripts/build.js"></script>
