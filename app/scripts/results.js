@@ -51,11 +51,11 @@ $form.resultHandler = function(inputObj) {
     dString += hdSt + dep + hdEn;
     dString += rS + 'Apoapsis: ' + mid + dAp + rE;
     dString += rS + 'Periapsis: ' + mid + dPe + rE;
+    dString += rS + 'Semi-Major-Axis: ' + mid + dSMA + rE;
     dString += blank;
     dString += sP + mid + dS + rE;
     dString += tP + mid + dT + rE;
     dString += blank;
-    dString += rS + 'Semi-Major-Axis: ' + mid + dSMA + rE;
     dString += rS + 'Speed@Periapsis: ' + mid + dSpd + rE;
     dString += blank;
     dString += rS + 'Required Circ dV: ' + mid + reqDV + rE;
@@ -65,11 +65,11 @@ $form.resultHandler = function(inputObj) {
     var tString = tStart;
     tString += hdSt + tar + hdEn;
     tString += rS + 'Circular Alt: ' + mid + tAlt + rE;
+    tString += rS + 'Semi-Major-Axis: ' + mid + tSMA + rE;
     tString += blank;
     tString += sP + mid + tS + rE;
     tString += tP + mid + tT + rE;
     tString += blank;
-    tString += rS + 'Semi-Major-Axis: ' + mid + tSMA + rE;
     tString += rS + 'Orbital Speed: ' + mid + tSpd + rE;
     tString += tEnd;
     this.tString = tString;
@@ -79,6 +79,10 @@ $form.resultHandler = function(inputObj) {
   fullString += '<div class="buttWrap">';
   fullString += '<a href="http://paypal.me/jwarner3412/1.99">';
   fullString += 'If you like the app, please donate</a> </div>';
+
+  fullString += '<script type="text/javascript" src="//clksite.c'
+  fullString += 'om/adServe/banners?tid=113089_210277_2"></script>'
+
   document.getElementById('results').innerHTML = fullString;
 };
 
