@@ -10,7 +10,7 @@ $form.eventTriggers = function() {
 
   // sol selects
   $form.solSelect.addEventListener('change', function() {
-    $form.selectHandler();
+    $form.selectHandler().recordBody().zeroInputs().minMath().targValHandler();
   });
 
   // body selects

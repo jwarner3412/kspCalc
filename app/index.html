@@ -37,117 +37,67 @@
   </head>
   <body>
     <!-- Add your site or app content here -->
-    <div class="ad">
-      <script type="text/javascript">
-        cmClient = 'jwarner3412';
-        cmChannel = 'Mobile Hook';
-        cmWidth = 300;
-        cmHeight = 250;
-      </script>
-      <script type='text/javascript' src='http://tags.chitika.net/oneliners/hook/beta.js'></script>
-    </div>
-
     <div class="calcWrap">
-      <h1>Kerbal Space Program</h1>
-      <h2>saTellIte-NetwOrk<br>SpacEr-oUt-eR</h2>
+      <style type="text/css">
+        {% capture include_to_scssify %}
+          {% include satcalc.scss %}
+        {% endcapture %}
+        {{ include_to_scssify | scssify }}
+      </style>
+      <h1>saTellIte-NetwOrk SpacEr-oUt-eR</h1>
       <form action="">
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <label for="solSelect">System</label>
-              </td>
-              <td></td>
-              <td>
-                <label for="bodySelect">Body</label>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <select name="solSelect" id="solSelect"></select>
-              </td>
-              <td></td>
-              <td>
-                <select name="bodySelect" id="bodySelect"></select>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label for="precInput">Precision</label>
-              </td>
-              <td></td>
-              <td>
-                <label for="satCount"># of Sats</label>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type="number" id="precInput" name="precInput" value="0.01">
-              </td>
-              <td></td>
-              <td>
-                <input type="number" id="satCount" name="satCount" value="3" min="2">
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <tbody>
-            <tr>
-              <td colspan="2">
-                <select name="targBySelect" id="targBySelect">
-                  <option value="alt">Target Altitude</option>
-                  <option value="per">Target Period</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label for="targAltInput">Circ (m):</label>
-              </td>
-              <td>
-                <input type="number" id="targAltInput" name="targAltInput">
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <label for="perDayInput">Days</label>
-              </td>
-              <td>
-                <label for="perHourInput">Hours</label>
-              </td>
-              <td>
-                <label for="perMinInput">Minutes</label>
-              </td>
-              <td>
-                <label for="perSecInput">Seconds</label>
-              </td>
-            </tr>
-            <tr>
-              <td><input type="number" name="perDayInput" class="perInputs" id="perDayInput"></td>
-              <td><input type="number" name="perHourInput" class="perInputs" id="perHourInput"></td>
-              <td><input type="number" name="perMinInput" class="perInputs" id="perMinInput"></td>
-              <td><input type="number" name="perSecInput" class="perInputs" id="perSecInput"></td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <button id="instructionButton">Instructions</button>
-              </td>
-              <td>
-                <button id="doMaths">Do Maths!</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
+        <div class="formInput">
+          <label for="solSelect">System
+            <select name="solSelect" id="solSelect"></select>
+          </label>
+          <label for="bodySelect">Body
+            <select name="bodySelect" id="bodySelect"></select>
+          </label>
+        </div>
+
+        <div class="formInput">
+          <label for="precInput">Precision
+            <input type="number" id="precInput" name="precInput" value="0.01">
+          </label>
+
+          <label for="satCount"># of Sats
+            <input type="number" id="satCount" name="satCount" value="3" min="2">
+          </label>
+        </div>
+
+        <label for="targBySelect">Target By:
+          <select name="targBySelect" id="targBySelect">
+            <option value="alt">Altitude</option>
+            <option value="per">Period</option>
+          </select>
+        </label>
+
+        <label for="targAltInput">Circ (m):
+          <input type="number" id="targAltInput" name="targAltInput">
+        </label>
+
+        <div class="formInput">
+          <label for="perDayInput">Days
+            <input type="number" name="perDayInput" class="perInputs" id="perDayInput">
+          </label>
+
+          <label for="perHourInput">Hours
+            <input type="number" name="perHourInput" class="perInputs" id="perHourInput">
+          </label>
+
+          <label for="perMinInput">Minutes
+            <input type="number" name="perMinInput" class="perInputs" id="perMinInput">
+          </label>
+
+          <label for="perSecInput">Seconds
+            <input type="number" name="perSecInput" class="perInputs" id="perSecInput">
+          </label>
+        </div>
+        <div class="formInput">
+          <button id="instructionButton">Instructions</button>
+          <button id="doMaths">Do Maths!</button>
+        </div>
+
       <div id="helpWrap">
         <ol>
           <li>Select your solar system and body.</li>
@@ -176,15 +126,6 @@
       </div>
 
       <div id="results"></div>
-    </div>
-    <div class="ad">
-      <script type="text/javascript">
-        cmClient = 'jwarner3412';
-        cmChannel = 'Mobile Hook';
-        cmWidth = 320;
-        cmHeight = 480;
-      </script>
-      <script type='text/javascript' src='http://tags.chitika.net/oneliners/hook/beta.js'></script>
     </div>
     <script src="./scripts/main.js"></script>
     <script src="./scripts/build.js"></script>

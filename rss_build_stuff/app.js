@@ -14,16 +14,35 @@ var Body = {
   "synodicDayS": 2665723.45
 }
 */
-var Body = function(name, orbits, rad, massKG, daysec, minPE) {
-  var G = 3.5316e+12;
-  this.orbits = orbits;
-  this.bodyName = name;
-  this.radiusM = rad;
-  this.massKG = massKG;
-  this.siderealDayS = daysec;
-  this.MUms3 = (G * (massKG * 1000));
+var data = require('./rss.json');
+var list = [];
+var Body = function(obj) {
+  var G = 6.674e-11;
+  this.orbits = obj.orbits;
+  this.bodyName = obj.bodyName;
+  this.radiusM = obj.radiusM;
+  this.MUms3 = (G * obj.massKG);
+  this.massKG = obj.massKG;
+  this.surfaceGravityMS2 = (G * obj.massKG) / (obj.radiusM * obj.radiusM);
+  if (obj.synchSmaM) {
+    var parentMass;
+    data.forEach(function(element,index,array){
+      if (element.bodyName === obj.orbits) {
+        parentMass = element.massKG;
+        console.log(element.bodyName);
+        console.log(parentMass);
+      }
+    })
+    this.SmaM = obj.synchSmaM;
+    this.soiRadM = obj.synchSmaM * Math.pow(obj.massKG / parentMass, 2 / 5);
+  }
+  this.siderealDayS = obj.siderealDayS;
+  this.minPE = obj.minPE;
+  this.siderealOrbitS;
+  this.siderealDayS = obj.siderealDayS;
 }
 
-var mercury = new Body('Mercury', 'Sun', 261600000, 1.756567E+28, 1210000, 6818);
-console.dir(mercury);
-console.log(typeof G + typeof mass);
+data.forEach(function(element, index, array){
+  list[index] = new Body(element);
+})
+console.dir(list);

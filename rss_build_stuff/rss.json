@@ -1,0 +1,137 @@
+[{
+	"orbits": 0,
+	"bodyName": "Sun",
+	"radiusM": 696342000,
+	"massKG": 1.9891E+30,
+	"siderealDayS": 2114208,
+	"synchSmaM": 0,
+	"minPE": 1000
+}, {
+	"orbits": "Sun",
+	"bodyName": "Mercury",
+	"radiusM": 2439700,
+	"massKG": 3.3022E+23,
+	"siderealDayS": 5067031.68,
+	"synchSmaM": 57908973645.88802,
+	"minPE": 20578.0
+}, {
+	"orbits": "Sun",
+	"bodyName": "Venus",
+	"radiusM": 6051800,
+	"massKG": 4.8676E+24,
+	"siderealDayS": 20996798.4,
+	"synchSmaM": 108209548790.4671,
+	"minPE": 140000
+}, {
+	"orbits": "Sun",
+	"bodyName": "Earth",
+	"radiusM": 6371000,
+	"massKG": 4.8676E+24,
+	"siderealDayS": 86164.098903691,
+	"synchSmaM": 149494366257.0978,
+	"minPE": 130000
+}, {
+	"orbits": "Earth",
+	"bodyName": "Moon",
+	"radiusM": 1737100,
+	"massKG": 7.346119268804316e+22,
+	"siderealDayS": 2360584.68479999,
+	"synchSmaM": 384308437.7707066,
+	"minPE": 19905.0
+}, {
+	"orbits": "Sun",
+	"bodyName": "Mars",
+	"radiusM": 3380100,
+	"massKG": 6.4185E+23,
+	"siderealDayS": 88642.6848,
+	"synchSmaM": 227949699961.9763,
+	"minPE": 130000
+}, {
+	"orbits": "Mars",
+	"bodyName": "Phobos",
+	"radiusM": 7250,
+	"massKG": 1.072E+16,
+	"siderealDayS": 27552,
+	"synchSmaM": 9378492.209088314,
+	"minPE": 6150
+}, {
+	"orbits": "Mars",
+	"bodyName": "Deimos",
+	"radiusM": 5456,
+	"massKG": 1.48E+15,
+	"siderealDayS": 109123.2,
+	"synchSmaM": 23458112.01759387,
+	"minPE": 2128
+}, {
+	"orbits": "Sun",
+	"bodyName": "Jupiter",
+	"radiusM": 69911000,
+	"massKG": 1.8986E+27,
+	"siderealDayS": 35730,
+	"synchSmaM": 778188938659.7554,
+	"minPE": 800000
+}, {
+	"orbits": "Jupiter",
+	"bodyName": "Io",
+	"radiusM": 1811300,
+	"massKG": 8.9319E+22,
+	"siderealDayS": 152841.6,
+	"synchSmaM": 422018294.5236953,
+	"minPE": 17500
+}, {
+	"orbits": "Jupiter",
+	"bodyName": "Europa",
+	"radiusM": 1550800,
+	"massKG": 4.7998E+22,
+	"siderealDayS": 306822.0384,
+	"synchSmaM": 671253637.5417169,
+	"minPE": 1500
+}, {
+	"orbits": "Jupiter",
+	"bodyName": "Ganymede",
+	"radiusM": 2624100,
+	"massKG": 1.4819E+23,
+	"siderealDayS": 618153.3792,
+	"synchSmaM": 1070823468.894524,
+	"minPE": 1000
+}, {
+	"orbits": "Jupiter",
+	"bodyName": "Callisto",
+	"radiusM": 2409300,
+	"massKG": 1.075938E+23,
+	"siderealDayS": 1441931.328,
+	"synchSmaM": 1883812366.573522,
+	"minPE": 3000
+}, {
+	"orbits": "Sun",
+	"bodyName": "Saturn",
+	"radiusM": 60268000,
+	"massKG": 5.6846E+26,
+	"siderealDayS": 38052,
+	"synchSmaM": 1424838758613.269,
+	"minPE": 830000
+}, {
+	"orbits": "Saturn",
+	"bodyName": "Titan",
+	"radiusM": 2566000,
+	"massKG": 1.3452E+23,
+	"siderealDayS": 1377648,
+	"synchSmaM": 1221966238.511425,
+	"minPE": 600000
+}, {
+	"orbits": "Sun",
+	"bodyName": "Uranus",
+	"radiusM": 25559000,
+	"massKG": 8.681E+25,
+	"siderealDayS": 62063.712,
+	"synchSmaM": 2866832853163.975,
+	"minPE": 390000
+}, {
+	"orbits": "Sun",
+	"bodyName": "Pluto",
+	"radiusM": 1143000,
+	"massKG": 1.305E+22,
+	"siderealDayS": 551856.672,
+	"synchSmaM": 5845670624078.223,
+	"minPE": 20578.0
+}]

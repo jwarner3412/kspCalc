@@ -14,3 +14,5 @@
 (function() {
   antList = $form.importData('./ant.json');
 })();
+
+// (c) Copyright 2015 person or company, all rights reserved.

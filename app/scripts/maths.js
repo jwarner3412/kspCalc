@@ -4,7 +4,7 @@ Math.radians = function(degrees) {
 };
 // sets numbers to 3 decimal places
 $form.setDec = function(value) {
-  return Math.floor(value * 1000) / 1000;
+  return Math.round(value * 1000) / 1000;
 };
 // calculates minimum & max orbit based on satCount and body parameters
 // does math, and snapShots a minOrbit obj and maxOrbit obj

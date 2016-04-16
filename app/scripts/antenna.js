@@ -14,3 +14,5 @@ var antHander = function(obj) {
 
 antHander(ant);
 */
+
+// All Rights Reserved.

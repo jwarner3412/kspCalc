@@ -110,7 +110,7 @@ gulp.task('scripts', () =>
       //       you need to explicitly list your scripts here in the right order
       //       to be correctly concatenated
       // Other scripts
-      './app/scripts/main.js',
+      /* './app/scripts/main.js' */
       './app/scripts/build.js',
       './app/scripts/input.js',
       './app/scripts/maths.js',
@@ -126,7 +126,7 @@ gulp.task('scripts', () =>
       .pipe($.sourcemaps.write())
       .pipe(gulp.dest('.tmp/scripts'))
       .pipe($.concat('main.min.js'))
-      .pipe($.uglify({preserveComments: 'some'}))
+      .pipe($.uglify({preserveComments: 'none'}))
       // Output files
       .pipe($.size({title: 'scripts'}))
       .pipe($.sourcemaps.write('.'))
