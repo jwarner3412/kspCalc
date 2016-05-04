@@ -10,36 +10,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <html>
-
 <head>
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <title>Elements Test Runner</title>
-  <meta charset="UTF-8">
+  <title>sat-calc-results</title>
 
-  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <script src="../bower_components/web-component-tester/browser.js"></script>
-</head>
 
+  <!-- Step 1: import the element to test -->
+  <link rel="import" href="../elements/sat-calc-results/sat-calc-results.html">
+
+</head>
 <body>
 
-  <script>
-    WCT.loadSuites([
-      'my-greeting-basic.html',
-      'my-greeting-basic.html?dom=shadow',
-      'my-list-basic.html',
-      'my-list-basic.html?dom=shadow',
-      'sat-calc-basic.html',
-      'sat-calc-basic.html?dom=shadow',
-      'sat-calc-input-basic.html',
-      'sat-calc-input-basic.html?dom=shadow',
-      'sat-calc-results-basic.html',
-      'sat-calc-results-basic.html?dom=shadow',
-      'sat-calc-ant-basic.html',
-      'sat-calc-ant-basic.html?dom=shadow'
-    ]);
-  </script>
+<test-fixture id="basic">
+  <template>
+    <sat-calc-results></sat-calc-results>
+  </template>
+</test-fixture>
 
+<script>
+  suite('sat-calc-results tests', function() {
+    var element;
+
+    setup(function() {
+      element = fixture('basic');
+    });
+
+    test('', function() {
+
+    });
+
+  });
+</script>
 
 </body>
-
 </html>
