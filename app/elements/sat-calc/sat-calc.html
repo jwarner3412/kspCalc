@@ -11,7 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 
-<link rel="import" href="sat-calc-input/sat-calc-input.html">
+<link rel="import" href="../sat-calc-input/sat-calc-input.html">
 
 <dom-module id="sat-calc">
   <template>
@@ -41,15 +41,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: 'sat-calc',
           notify: true
         }
-
-        sortData: function(obj) {
-          if (typeof obj.forEach === "function") {
-            obj.forEach(function(element, index, array) {
-
-            })
-          }
-        }
-
 
       }
     });

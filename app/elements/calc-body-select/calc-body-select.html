@@ -8,13 +8,13 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<link rel="import" href="../../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 
-<dom-module id="sat-calc-selects">
+<dom-module id="calc-body-select">
   <template>
     <style>
       :host {
@@ -22,36 +22,45 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <paper-dropdown-menu label="System">
+    <paper-dropdown-menu label="System" >
       <paper-listbox class="dropdown-content">
-        <paper-item>Kerbol</paper-item>
-        <paper-item>RSS/RO</paper-item>
+        <template is="dom-repeat" items="{{data}}" as="item">
+          <paper-item>{{returnName(item)}}</paper-item>
+        </template>
       </paper-listbox>
     </paper-dropdown-menu>
+
     <paper-dropdown-menu label="Body">
       <paper-listbox class="dropdown-content">
-        <paper-item>Kerbin</paper-item>
-        <paper-item>-Mun</paper-item>
-        <paper-item>-Minmus</paper-item>
-        <paper-item>Duna</paper-item>
+        <template is="dom-repeat" items="{{returnBodys(data)}}" as="item">
+          <paper-item>{{item.bodyName}}</paper-item>
+        </template>
       </paper-listbox>
     </paper-dropdown-menu>
+
   </template>
   <script>
   (function() {
     'use strict';
 
     Polymer({
-      is: 'sat-calc-selects',
+      is: 'calc-body-select',
 
       properties: {
         data: {
-          type: Object,
+          type: Array,
           notify: true
         }
+      },
+
+      returnName: function(obj) {
+        return obj.name;
+      },
+
+      returnBodys: function(array) {
+        return array[0].bodys;
       }
 
-      
     });
   })();
   </script>

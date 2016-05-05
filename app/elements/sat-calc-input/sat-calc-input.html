@@ -8,30 +8,35 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<dom-module id="sat-calc-target">
+<link rel="import" href="../sat-calc-selects/sat-calc-selects.html">
+<link rel="import" href="../sat-calc-options/sat-calc-options.html">
+<link rel="import" href="../sat-calc-target/sat-calc-target.html">
+
+<dom-module id="sat-calc-input">
   <template>
     <style>
       :host {
         display: block;
       }
     </style>
-    <paper-input label="Target Altitude(Circ)" type="number"></paper-input>
-    <paper-input label="Period" type="number"></paper-input>
+
+    <sat-calc-selects data="{{data}}"></sat-calc-selects>
+    <sat-calc-options></sat-calc-options>
+    <sat-calc-target></sat-calc-target>
+
   </template>
   <script>
   (function() {
     'use strict';
 
     Polymer({
-      is: 'sat-calc-target',
+      is: 'sat-calc-input',
 
       properties: {
-        foo: {
-          type: String,
-          value: 'sat-calc-target',
+        data: {
+          type: Array,
           notify: true
         }
       }
