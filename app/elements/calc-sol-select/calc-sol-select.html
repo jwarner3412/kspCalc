@@ -17,7 +17,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
     </style>
-    <div>Hello from <span>{{foo}}</span></div>
+
+    <paper-dropdown-menu label="System" >
+      <paper-listbox class="dropdown-content">
+        <template is="dom-repeat" items="{{data}}" as="item">
+          <paper-item>{{returnName(item)}}</paper-item>
+        </template>
+      </paper-listbox>
+    </paper-dropdown-menu>
+
   </template>
   <script>
   (function() {
@@ -27,9 +35,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'calc-sol-select',
 
       properties: {
-        foo: {
-          type: String,
-          value: 'calc-sol-select',
+        data: {
+          type: Array,
+          notify: true
+        },
+        bodyList: {
+          type: Array,
           notify: true
         }
       }

@@ -22,14 +22,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <paper-dropdown-menu label="System" >
-      <paper-listbox class="dropdown-content">
-        <template is="dom-repeat" items="{{data}}" as="item">
-          <paper-item>{{returnName(item)}}</paper-item>
-        </template>
-      </paper-listbox>
-    </paper-dropdown-menu>
-
     <paper-dropdown-menu label="Body">
       <paper-listbox class="dropdown-content">
         <template is="dom-repeat" items="{{returnBodys(data)}}" as="item">
