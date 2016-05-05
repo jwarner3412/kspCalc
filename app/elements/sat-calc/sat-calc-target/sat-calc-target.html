@@ -8,49 +8,32 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/paper-input/paper-input.html">
 
-<link rel="import" href="sat-calc-input/sat-calc-input.html">
-
-<dom-module id="sat-calc">
+<dom-module id="sat-calc-target">
   <template>
     <style>
       :host {
         display: block;
       }
     </style>
-
-    <sat-calc-input data="{{response}}"></sat-calc-input>
-    <iron-ajax auto
-              url="../../dataList.json"
-              handle-as="json"
-              last-response={{response}}
-              debounce-duration="300"></iron-ajax>
+    <paper-input label="Target Altitude(Circ)" type="number"></paper-input>
+    <paper-input label="Period" type="number"></paper-input>
   </template>
   <script>
   (function() {
     'use strict';
 
     Polymer({
-      is: 'sat-calc',
+      is: 'sat-calc-target',
 
       properties: {
         foo: {
           type: String,
-          value: 'sat-calc',
+          value: 'sat-calc-target',
           notify: true
         }
-
-        sortData: function(obj) {
-          if (typeof obj.forEach === "function") {
-            obj.forEach(function(element, index, array) {
-
-            })
-          }
-        }
-
-
       }
     });
   })();
