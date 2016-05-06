@@ -23,9 +23,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <paper-dropdown-menu label="Body">
-      <paper-listbox class="dropdown-content">
-        <template is="dom-repeat" items="{{returnBodys(data)}}" as="item">
-          <paper-item>{{item.bodyName}}</paper-item>
+      <paper-listbox id="body" class="dropdown-content" selected="{{selectedBody}}">
+        <template is="dom-repeat" items="{{data}}" as="item">
+          <paper-item label="{{item.bodyName}}">{{bodyIndex(item.bodyName, index)}}</paper-item>
         </template>
       </paper-listbox>
     </paper-dropdown-menu>
@@ -42,15 +42,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         data: {
           type: Array,
           notify: true
+        },
+        userBody: {
+          type: Object,
+          notify: true,
+          computed: '_returnBody(data, selectedBody)'
         }
       },
 
-      returnName: function(obj) {
-        return obj.name;
+      bodyIndex: function(name, i) {
+        if (name == 'Kerbin' || name == 'Earth') {
+          this.$.body.selected = i;
+        }
+        return name;
       },
 
-      returnBodys: function(array) {
-        return array[0].bodys;
+      _returnBody: function(list, i) {
+        console.log(list[i]);
+        return list[i];
       }
 
     });

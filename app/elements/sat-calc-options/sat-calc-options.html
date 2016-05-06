@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-radio-group/paper-radio-group.html">
 
 <dom-module id="sat-calc-options">
   <template>
@@ -18,8 +19,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
     </style>
-    <paper-input label="Precision" type="number"></paper-input>
-    <paper-input label="# of Sats" type="number"></paper-input>
+    <paper-input label="Precision" type="number" value="0.01"></paper-input>
+    <paper-input label="# of Sats" type="number" value="3"></paper-input>
+    <paper-radio-group id="targby" selected="{{selected}}">
+      <paper-item>Target By:</paper-item>
+      <paper-radio-button name="alt">Altitude</paper-radio-button>
+      <paper-radio-button name="per">Period</paper-radio-button>
+    </paper-radio-group>
   </template>
   <script>
   (function() {
@@ -33,6 +39,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           value: 'sat-calc-options',
           notify: true
+        },
+
+        ready: function() {
+          this.$.targby.selected = 0;
         }
       }
     });

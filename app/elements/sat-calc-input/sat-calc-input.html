@@ -10,7 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<link rel="import" href="../sat-calc-selects/sat-calc-selects.html">
+<link rel="import" href="../calc-sol-select/calc-sol-select.html">
+<link rel="import" href="../calc-body-select/calc-body-select.html">
 <link rel="import" href="../sat-calc-options/sat-calc-options.html">
 <link rel="import" href="../sat-calc-target/sat-calc-target.html">
 
@@ -22,7 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
     <calc-sol-select data="{{data}}" body-list="{{bodys}}"></calc-sol-select>
-    <calc-body-select data="{{bodys}}" ></calc-body-select>
+    <calc-body-select data="{{bodys}}" user-body="{{body}}"></calc-body-select>
     <sat-calc-options></sat-calc-options>
     <sat-calc-target></sat-calc-target>
 
