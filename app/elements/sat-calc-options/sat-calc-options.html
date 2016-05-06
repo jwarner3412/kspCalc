@@ -19,13 +19,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
     </style>
-    <paper-input label="Precision" type="number" value="0.01"></paper-input>
-    <paper-input label="# of Sats" type="number" value="3"></paper-input>
-    <paper-radio-group id="targby" selected="{{selected}}">
-      <paper-item>Target By:</paper-item>
+    <paper-input id="precision" label="Precision" type="number" value="{{precInput}}" min="0.01"></paper-input>
+    <paper-input id="sat-input" label="# of Sats" type="number" value="{{satCount}}" min="3"></paper-input>
+
+    <paper-radio-group id="targby" selected="{{targBy}}">
+      <paper-item disabled="true">Target By:</paper-item>
       <paper-radio-button name="alt">Altitude</paper-radio-button>
       <paper-radio-button name="per">Period</paper-radio-button>
     </paper-radio-group>
+
   </template>
   <script>
   (function() {
@@ -35,16 +37,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'sat-calc-options',
 
       properties: {
-        foo: {
-          type: String,
-          value: 'sat-calc-options',
+        userOptions: {
+          type: Object,
+          computed: '_returnOpts(precInput, satCount, targBy)',
           notify: true
         },
 
-        ready: function() {
-          this.$.targby.selected = 0;
+        targBy: {
+          type: String,
+          value: 'alt',
+        },
+
+        satCount: {
+          type: Number,
+          value: 3
+        },
+
+        precInput: {
+          type: Number,
+          value: 0.01
         }
+      },
+
+      _returnOpts: function(prec, sats, targ) {
+        var options = {
+          precInput: prec,
+          satCount: sats,
+          targBy: targ
+        }
+        console.log(options);
+        return options;
       }
+
     });
   })();
   </script>

@@ -24,7 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <paper-dropdown-menu label="Body">
       <paper-listbox id="body" class="dropdown-content" selected="{{selectedBody}}">
-        <template is="dom-repeat" items="{{data}}" as="item">
+        <template is="dom-repeat" items="{{bodyList}}" as="item">
           <paper-item label="{{item.bodyName}}">{{bodyIndex(item.bodyName, index)}}</paper-item>
         </template>
       </paper-listbox>
@@ -39,14 +39,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'calc-body-select',
 
       properties: {
-        data: {
+        bodyList: {
           type: Array,
           notify: true
         },
         userBody: {
           type: Object,
           notify: true,
-          computed: '_returnBody(data, selectedBody)'
+          computed: '_returnBody(bodyList, selectedBody)'
         }
       },
 

@@ -20,7 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <paper-dropdown-menu label="System">
       <paper-listbox id="sol" class="dropdown-content" selected="{{solSelect}}" on-iron-items-changed="setDefault">
-        <template is="dom-repeat" items="{{data}}" as="item">
+        <template is="dom-repeat" items="{{solList}}" as="item">
           <paper-item label="{{item.name}}">{{item.name}}</paper-item>
         </template>
       </paper-listbox>
@@ -35,13 +35,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'calc-sol-select',
 
       properties: {
-        data: {
+        solList: {
           type: Array,
           notify: true
         },
         bodyList: {
           type: Array,
-          computed: '_returnBodyList(data, solSelect)',
+          computed: '_returnBodyList(solList, solSelect)',
           notify: true
         }
       },

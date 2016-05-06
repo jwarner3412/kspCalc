@@ -22,9 +22,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
     </style>
-    <calc-sol-select data="{{data}}" body-list="{{bodys}}"></calc-sol-select>
-    <calc-body-select data="{{bodys}}" user-body="{{body}}"></calc-body-select>
-    <sat-calc-options></sat-calc-options>
+    <calc-sol-select sol-list="{{data}}" body-list="{{bodys}}"></calc-sol-select>
+    <calc-body-select body-list="{{bodys}}" user-body="{{body}}"></calc-body-select>
+    <sat-calc-options user-options="{{options}}"></sat-calc-options>
     <sat-calc-target></sat-calc-target>
 
   </template>
