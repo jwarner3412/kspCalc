@@ -18,9 +18,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
     </style>
-    <paper-input label="Target Altitude(Circ)" type="number"></paper-input>
-    <paper-input label="Period" type="number"></paper-input>
+    <paper-input label="Target Altitude(Circ)" type="number" disabled="{{parseBool(inputOpts)}}"></paper-input>
+    <paper-input label="Period" type="number" disabled="{{!parseBool(inputOpts)}}"></paper-input>
   </template>
+
   <script>
   (function() {
     'use strict';
@@ -29,12 +30,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'sat-calc-target',
 
       properties: {
-        foo: {
-          type: String,
-          value: 'sat-calc-target',
-          notify: true
+        inputOpts: {
+          type: String
+        }
+      //
+      //   selectBool: {
+      //     type: Boolean,
+      //     computed: _parseBool(inputOpts),
+      //     value: false,
+      //     notify: true
+      //   }
+      },
+
+      parseBool: function(opts) {
+        if (opts == 'alt') {
+          return false;
+        } else {
+          return true;
         }
       }
+
     });
   })();
   </script>

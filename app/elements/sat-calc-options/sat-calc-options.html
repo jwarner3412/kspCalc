@@ -23,7 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-input id="sat-input" label="# of Sats" type="number" value="{{satCount}}" min="3"></paper-input>
 
     <paper-radio-group id="targby" selected="{{targBy}}">
-      <paper-item disabled="true">Target By:</paper-item>
+      <paper-item disabled>Target By:</paper-item>
       <paper-radio-button name="alt">Altitude</paper-radio-button>
       <paper-radio-button name="per">Period</paper-radio-button>
     </paper-radio-group>
@@ -45,7 +45,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         targBy: {
           type: String,
-          value: 'alt',
+          value: "alt"
         },
 
         satCount: {

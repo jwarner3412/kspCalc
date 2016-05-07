@@ -25,7 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <calc-sol-select sol-list="{{data}}" body-list="{{bodys}}"></calc-sol-select>
     <calc-body-select body-list="{{bodys}}" user-body="{{body}}"></calc-body-select>
     <sat-calc-options user-options="{{options}}"></sat-calc-options>
-    <sat-calc-target></sat-calc-target>
+    <sat-calc-target input-opts="{{options.targBy}}"></sat-calc-target>
 
   </template>
   <script>
@@ -37,8 +37,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       properties: {
         data: {
-          type: Array,
-          notify: true
+          type: Array
         }
       }
     });
