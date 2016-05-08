@@ -30,13 +30,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 0 2.5%;
       }
     </style>
-    <calc-sol-select sol-list="[[solList]]" user-sol="{{solInput}}"></calc-sol-select>
-    <calc-body-select body-list="[[bodyList]]" user-body="{{bodyInput}}" reset="{{reset}}"></calc-body-select>
 
-    <sat-calc-options user-options="{{options}}" reset="{{reset}}" label="{{targLabel}}"></sat-calc-options>
-    <sat-calc-target user-val="{{targetValue}}"
-      comp-val="{{compVal}}"
-      min="{{min}}" max="{{max}}" reset="{{reset}}"></sat-calc-target>
+    <calc-sol-select sol-list="[[solList]]"
+      user-sol="{{solInput}}"></calc-sol-select>
+
+    <calc-body-select body-list="[[bodyList]]"
+      user-body="{{bodyInput}}"
+      reset="{{reset}}"></calc-body-select>
+
+    <sat-calc-options user-options="{{options}}"
+      reset="{{reset}}"
+      label="{{targLabel}}">
+      <sat-calc-target user-val="{{targetValue}}"
+        min="{{min}}" max="{{max}}"
+        reset="{{reset}}"></sat-calc-target>
+    </sat-calc-options>
 
     <sat-calc-action></sat-calc-action>
 
@@ -107,7 +115,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       getLabel: function(results) {
-        console.log(results);
         var lbl = {alt: results.altM, per: results.per, time: results.time}
         return lbl;
       }

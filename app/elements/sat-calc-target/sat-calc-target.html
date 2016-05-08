@@ -18,11 +18,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       };
       paper-slider {
-        display: block;
+        display: flex;
+        flex-direction: column-reverse;
+
         margin: none;
         --paper-slider-input: {
           width: 100%;
-          margin: -1em 0 1em 1em;
+          padding-top: 25%;
           text-align: left;
         };
       }
@@ -30,8 +32,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <paper-slider min="[[min]]" max="[[max]]" immediate-value="{{userVal}}" name="test" change="{{validate(min, max, userVal)}}" editable>
-    </paper-slider>
+    <paper-slider min="[[min]]" max="[[max]]"
+      step="0.001"
+      immediate-value="{{userVal}}"
+      value-change="{{validate(min, max, userVal)}}"
+      editable></paper-slider>
 
   </template>
   <script>
@@ -62,9 +67,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       validate: function(min, max, val) {
-        if (!val || this.reset) {
-          this.querySelector('paper-slider').value = min;
+        if (this.reset || !val || val < min) {
           this.reset = false;
+          this.querySelector('paper-slider').value = min;
+        }
+        if (val > max) {
+          this.querySelector('paper-slider').value = max;
         }
       }
 

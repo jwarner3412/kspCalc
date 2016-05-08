@@ -9,15 +9,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <dom-module id="sat-calc-action">
   <template>
     <style>
       :host {
         display: block;
+        text-align: right;
+      }
+
+      paper-button {
+        background-color: var(--primary-color);
+        color: var(--primary-background-color);
       }
     </style>
-    <div>Hello from <span>{{foo}}</span></div>
+    <paper-button raised>Geosyncronous</paper-button>
+    <paper-button raised>Do Math!</paper-button>
   </template>
   <script>
   (function() {

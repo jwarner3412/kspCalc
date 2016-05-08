@@ -31,12 +31,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Number
         },
 
-        compVal: {
-          type: Number,
-          computed: 'convert(userOptions.targBy, result)',
-          notify: true
-        },
-
         minOrbit: {
           type: Object,
           computed: 'minMath(userOptions, userBody)'
@@ -143,9 +137,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       takeSnap: function(opt, body, val) {
-        if (val == this.minVal) {
+        if (val <= this.minVal) {
           return this.minOrbit;
-        } else if (val == this.maxVal) {
+        } else if (val >= this.maxVal) {
           return this.maxOrbit;
         } else if (this.result) {
           if (val == this.result.target.altM && opt.targBy == 'alt') {
@@ -175,7 +169,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
         var bodyR = body.radiusM;
-        var minPE = body.minPE;
+        var minPE = body.minPE + 1000;
         var precInput = parseFloat(opt.precInput);
         var satCount = parseInt(opt.satCount, 10);
 
@@ -185,14 +179,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var minOrbit = new this.SnapShot(opts, body, minAlt);
 
         return minOrbit;
-      },
-
-      _returnMinVal(opt, min) {
-        if (opt == 'alt') {
-          return min.target.altM;
-        } else {
-          return min.target.per;
-        }
       },
 
       maxMath: function(opt, body) {
@@ -218,6 +204,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var maxOrbit = new this.SnapShot(opts, body, maxPer);
 
         return maxOrbit;
+      },
+
+      _returnMinVal(opt, min) {
+        if (opt == 'alt') {
+          return min.target.altM;
+        } else {
+          return min.target.per;
+        }
       },
 
       _returnMaxVal(opt, max) {

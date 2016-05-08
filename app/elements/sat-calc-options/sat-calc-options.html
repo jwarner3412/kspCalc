@@ -30,21 +30,44 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         width: 100%;
       }
 
+      .wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 0 5%
+      }
+
       paper-radio-group {
-        width: 100%;
+
       }
       paper-radio-group > div {
         margin: 1em 0 -1em;
       }
 
     </style>
-    <paper-input id="precision" label="Precision" type="number" value="{{precInput}}" min="0.01" validator="{{validate('#precision')}}"></paper-input>
-    <paper-input id="sat-input" label="# of Sats" type="number" value="{{satCount}}" min="3" validator="{{validate('#sat-input')}}"></paper-input>
-    <paper-radio-group id="targby" selected="{{targBy}}" validator="{{validateTB('#targby')}}">
-      <div>Target By:</div>
-      <paper-radio-button name="alt">Altitude: {{label.alt}}(m)</paper-radio-button>
-      <paper-radio-button name="per">Period: {{label.per}}(s) / {{getTime(label.time)}}</paper-radio-button>
-    </paper-radio-group>
+    <paper-input id="precision"
+      label="Precision"
+      type="number"
+      value="{{precInput}}"
+      min="0.001"
+      change="{{validate('#precision')}}"></paper-input>
+
+    <paper-input id="sat-input"
+      label="# of Sats"
+      type="number"
+      value="{{satCount}}"
+      min="2"
+      change="{{validate('#sat-input')}}"></paper-input>
+
+    <div class="wrapper">
+      <paper-radio-group id="targby" selected="{{targBy}}" change="{{validateTB('#targby')}}">
+        <div>Target By:</div>
+        <paper-radio-button name="alt">Altitude: {{toLocale(label.alt)}}m</paper-radio-button>
+        <paper-radio-button name="per">Period: {{toLocale(label.per)}}s <br> {{getTime(label.time)}}</paper-radio-button>
+      </paper-radio-group>
+
+      <content></content>
+    </div>
 
   </template>
   <script>
@@ -82,17 +105,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       getTime: function(time) {
-        var c = ':';
+        var t = ' ';
+        var c = ' : '
         if (time[0]) {
-          console.log('true');
+          t += time[0] + 'd' + c;
         }
-        return time;
+        if (time[1]) {
+          t += time[1] + 'h' + c;
+        }
+        t += time[2] + 'm' + c + time[3] + 's';
+        return t;
+      },
+
+      toLocale: function(lab) {
+        lab = lab.toLocaleString();
+        return lab;
       },
 
       validate: function(id) {
         var v = this.querySelector(id).value;
         var min = this.querySelector(id).min;
-
         if (v) {
           if (v < min) {
             this.querySelector(id).value = min;
@@ -100,6 +132,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         } else {
           this.querySelector(id).value = min;
         }
+        return this;
       },
 
       validateTB: function(id) {
