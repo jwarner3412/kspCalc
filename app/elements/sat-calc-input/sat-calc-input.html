@@ -14,6 +14,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../calc-body-select/calc-body-select.html">
 <link rel="import" href="../sat-calc-options/sat-calc-options.html">
 <link rel="import" href="../sat-calc-target/sat-calc-target.html">
+<link rel="import" href="../sat-calc-data/sat-calc-data.html">
+<link rel="import" href="../sat-calc-action/sat-calc-action.html">
 
 <dom-module id="sat-calc-input">
   <template>
@@ -21,11 +23,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
       }
+      calc-sol-select,
+      calc-body-select {
+        display: inline-block;
+        width: 40%;
+        margin: 0 2.5%;
+      }
     </style>
-    <calc-sol-select sol-list="{{data}}" body-list="{{bodys}}"></calc-sol-select>
-    <calc-body-select body-list="{{bodys}}" user-body="{{body}}"></calc-body-select>
-    <sat-calc-options user-options="{{options}}"></sat-calc-options>
-    <sat-calc-target input-opts="{{options.targBy}}"></sat-calc-target>
+    <calc-sol-select sol-list="[[solList]]" user-sol="{{solInput}}"></calc-sol-select>
+    <calc-body-select body-list="[[bodyList]]" user-body="{{bodyInput}}" reset="{{reset}}"></calc-body-select>
+
+    <sat-calc-options user-options="{{options}}" reset="{{reset}}" label="{{targLabel}}"></sat-calc-options>
+    <sat-calc-target user-val="{{targetValue}}"
+      comp-val="{{compVal}}"
+      min="{{min}}" max="{{max}}" reset="{{reset}}"></sat-calc-target>
+
+    <sat-calc-action></sat-calc-action>
+
+    <sat-calc-data user-body="[[body]]"
+      user-options="{{options}}"
+      user-target="{{targetValue}}"
+      result="{{results}}"
+      min-val="{{min}}" max-val="{{max}}"></sat-calc-data>
 
   </template>
   <script>
@@ -38,8 +57,61 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         data: {
           type: Array
+        },
+
+        solList: {
+          type: Array,
+          computed: '_returnSolList(data)'
+        },
+
+        bodyList: {
+          type: Array,
+          computed: '_returnBodyList(data, solInput)'
+        },
+
+        body: {
+          type: Object,
+          computed: '_returnBody(data, solInput, bodyInput)'
+        },
+
+        targLabel: {
+          type: Object,
+          computed: 'getLabel(results.target)',
+          notify: true
+        },
+
+        results: {
+          type: Object,
+          notify: true
         }
+      },
+
+      _returnSolList: function(d) {
+        var solList = [];
+        d.forEach(function(e, i, a) {
+          solList.push(e.name);
+        });
+        return solList;
+      },
+
+      _returnBodyList: function(d, i) {
+        var bodyList = [];
+        d[i].bodys.forEach(function(e, i, a) {
+          bodyList.push(e.bodyName);
+        });
+        return bodyList;
+      },
+
+      _returnBody: function(d, s, b) {
+        return d[s].bodys[b];
+      },
+
+      getLabel: function(results) {
+        console.log(results);
+        var lbl = {alt: results.altM, per: results.per, time: results.time}
+        return lbl;
       }
+
     });
   })();
   </script>

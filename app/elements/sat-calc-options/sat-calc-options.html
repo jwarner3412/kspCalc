@@ -18,14 +18,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
       }
-    </style>
-    <paper-input id="precision" label="Precision" type="number" value="{{precInput}}" min="0.01"></paper-input>
-    <paper-input id="sat-input" label="# of Sats" type="number" value="{{satCount}}" min="3"></paper-input>
 
-    <paper-radio-group id="targby" selected="{{targBy}}">
-      <paper-item disabled>Target By:</paper-item>
-      <paper-radio-button name="alt">Altitude</paper-radio-button>
-      <paper-radio-button name="per">Period</paper-radio-button>
+      #precision, #sat-input, paper-radio-button {
+        width: 40%;
+        display: inline-block;
+        margin: 0 2.5%;
+      }
+
+      paper-radio-button {
+        display: block;
+        width: 100%;
+      }
+
+      paper-radio-group {
+        width: 100%;
+      }
+      paper-radio-group > div {
+        margin: 1em 0 -1em;
+      }
+
+    </style>
+    <paper-input id="precision" label="Precision" type="number" value="{{precInput}}" min="0.01" validator="{{validate('#precision')}}"></paper-input>
+    <paper-input id="sat-input" label="# of Sats" type="number" value="{{satCount}}" min="3" validator="{{validate('#sat-input')}}"></paper-input>
+    <paper-radio-group id="targby" selected="{{targBy}}" validator="{{validateTB('#targby')}}">
+      <div>Target By:</div>
+      <paper-radio-button name="alt">Altitude: {{label.alt}}(m)</paper-radio-button>
+      <paper-radio-button name="per">Period: {{label.per}}(s) / {{getTime(label.time)}}</paper-radio-button>
     </paper-radio-group>
 
   </template>
@@ -43,19 +61,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           notify: true
         },
 
-        targBy: {
-          type: String,
-          value: "alt"
+        reset: {
+          type: Boolean,
+          notify: true
         },
 
-        satCount: {
-          type: Number,
-          value: 3
-        },
-
-        precInput: {
-          type: Number,
-          value: 0.01
+        label: {
+          type: Object
         }
       },
 
@@ -65,10 +77,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           satCount: sats,
           targBy: targ
         }
-        console.log(options);
+        this.reset = true;
         return options;
-      }
+      },
 
+      getTime: function(time) {
+        var c = ':';
+        if (time[0]) {
+          console.log('true');
+        }
+        return time;
+      },
+
+      validate: function(id) {
+        var v = this.querySelector(id).value;
+        var min = this.querySelector(id).min;
+
+        if (v) {
+          if (v < min) {
+            this.querySelector(id).value = min;
+          }
+        } else {
+          this.querySelector(id).value = min;
+        }
+      },
+
+      validateTB: function(id) {
+        if (!this.querySelector(id).selected) {
+          this.querySelector(id).selected = 'alt';
+        }
+      }
     });
   })();
   </script>

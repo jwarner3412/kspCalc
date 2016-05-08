@@ -19,9 +19,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <paper-dropdown-menu label="System">
-      <paper-listbox id="sol" class="dropdown-content" selected="{{solSelect}}" on-iron-items-changed="setDefault">
-        <template is="dom-repeat" items="{{solList}}" as="item">
-          <paper-item label="{{item.name}}">{{item.name}}</paper-item>
+      <paper-listbox id="sol" class="dropdown-content" selected="{{solSelect}}">
+        <template is="dom-repeat" items="[[solList]]" as="item">
+          <paper-item label="[[item]]">[[item]]</paper-item>
         </template>
       </paper-listbox>
     </paper-dropdown-menu>
@@ -36,23 +36,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       properties: {
         solList: {
+          type: Array
+        },
+
+        userSol: {
           type: Array,
+          computed: '_returnSol(solSelect)',
           notify: true
         },
-        bodyList: {
-          type: Array,
-          computed: '_returnBodyList(solList, solSelect)',
-          notify: true
+
+        solSelect: {
+          type: Number,
+          value: 0
         }
       },
 
-      _returnBodyList: function(array, i) {
-        return array[i].bodys;
-      },
-
-      setDefault: function() {
-        this.$.sol.selected = 0;
+      _returnSol: function(i) {
+        return i;
       }
+
+      // setDefault: function() {
+      //   this.$.sol.selected = 0;
+      // }
     });
   })();
   </script>

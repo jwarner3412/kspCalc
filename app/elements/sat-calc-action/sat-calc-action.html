@@ -9,40 +9,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 
-<link rel="import" href="../sat-calc-input/sat-calc-input.html">
-
-<dom-module id="sat-calc">
+<dom-module id="sat-calc-action">
   <template>
     <style>
       :host {
         display: block;
       }
     </style>
-
-    <sat-calc-input data="{{response}}" results="{{result}}"></sat-calc-input>
-
-    <iron-ajax auto
-              url="../../dataList.json"
-              handle-as="json"
-              last-response={{response}}
-              debounce-duration="300"></iron-ajax>
+    <div>Hello from <span>{{foo}}</span></div>
   </template>
   <script>
   (function() {
     'use strict';
 
     Polymer({
-      is: 'sat-calc',
+      is: 'sat-calc-action',
 
       properties: {
         foo: {
           type: String,
-          value: 'sat-calc',
+          value: 'sat-calc-action',
           notify: true
         }
-
       }
     });
   })();
