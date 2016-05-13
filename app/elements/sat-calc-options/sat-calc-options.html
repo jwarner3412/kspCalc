@@ -9,8 +9,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-radio-group/paper-radio-group.html">
 
 <dom-module id="sat-calc-options">
   <template>
@@ -91,6 +89,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         label: {
           type: Object
+        },
+
+        targBy: {
+          type: String,
+          notify: true
         }
       },
 

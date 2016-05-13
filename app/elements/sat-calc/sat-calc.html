@@ -7,11 +7,9 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 
-<link rel="import" href="../sat-calc-input/sat-calc-input.html">
+<link rel="import" href="elements.html">
 
 <dom-module id="sat-calc">
   <template>
@@ -20,14 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
     </style>
-
-    <sat-calc-input data="{{response}}" results="{{result}}"></sat-calc-input>
-
-    <iron-ajax auto
-      url="../../dataList.json"
-      handle-as="json"
-      last-response={{response}}
-      debounce-duration="300"></iron-ajax>
+    <content></content>
   </template>
   <script>
   (function() {

@@ -57,6 +57,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Object,
           computed: 'takeSnap(userOptions, userBody, userTarget)',
           notify: true
+        },
+
+        geoToggle: {
+          type: Boolean,
+          computed: 'toggleGeo(userBody.siderealDayS, minOrbit.target.per, maxOrbit.target.per)',
+          notify: true
         }
       },
 
@@ -227,6 +233,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return obj.target.per;
         } else {
           return obj.target.altM;
+        }
+      },
+
+      toggleGeo: function(rot, min, max) {
+        if (!rot || rot < min || rot > max) {
+          return true;
+        } else {
+          return false;
         }
       }
 

@@ -9,7 +9,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-slider/paper-slider.html">
 
 <dom-module id="sat-calc-target">
   <template>
@@ -29,12 +28,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
       }
 
-      }
     </style>
 
     <paper-slider min="[[min]]" max="[[max]]"
       step="0.001"
       immediate-value="{{userVal}}"
+      value="{{geoVal}}"
       value-change="{{validate(min, max, userVal)}}"
       editable></paper-slider>
 
@@ -63,15 +62,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         reset: {
           type: Boolean,
           notify: true
+        },
+
+        geoVal: {
+          type: Number,
+          notify: true
         }
       },
 
       validate: function(min, max, val) {
         if (this.reset || !val || val < min) {
-          this.reset = false;
           this.querySelector('paper-slider').value = min;
-        }
-        if (val > max) {
+          this.reset = false;
+        } else if (val > max) {
           this.querySelector('paper-slider').value = max;
         }
       }

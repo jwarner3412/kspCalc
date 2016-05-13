@@ -7,15 +7,7 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-
-<link rel="import" href="../calc-sol-select/calc-sol-select.html">
-<link rel="import" href="../calc-body-select/calc-body-select.html">
-<link rel="import" href="../sat-calc-options/sat-calc-options.html">
-<link rel="import" href="../sat-calc-target/sat-calc-target.html">
-<link rel="import" href="../sat-calc-data/sat-calc-data.html">
-<link rel="import" href="../sat-calc-action/sat-calc-action.html">
 
 <dom-module id="sat-calc-input">
   <template>
@@ -40,19 +32,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <sat-calc-options user-options="{{options}}"
       reset="{{reset}}"
-      label="{{targLabel}}">
+      label="{{targLabel}}"
+      targ-by="{{targBy}}">
       <sat-calc-target user-val="{{targetValue}}"
         min="{{min}}" max="{{max}}"
-        reset="{{reset}}"></sat-calc-target>
+        reset="{{reset}}" geo-set="{{geoSet}}"
+        body-rot="{{body.siderealDayS}}"
+        targ-by="{{targBy}}"></sat-calc-target>
+
     </sat-calc-options>
 
-    <sat-calc-action></sat-calc-action>
+    <sat-calc-action baseUrl="{{baseUrl}}"
+      disable="{{geoDisable}}"
+      geo-set="{{geoSet}}"
+      ></sat-calc-action>
 
     <sat-calc-data user-body="[[body]]"
+      geo-toggle="{{geoDisable}}"
       user-options="{{options}}"
       user-target="{{targetValue}}"
       result="{{results}}"
       min-val="{{min}}" max-val="{{max}}"></sat-calc-data>
+
+    <iron-ajax auto
+      url="../../dataList.json"
+      handle-as="json"
+      last-response={{data}}
+      debounce-duration="300"></iron-ajax>
 
   </template>
   <script>
@@ -63,10 +69,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'sat-calc-input',
 
       properties: {
-        data: {
-          type: Array
-        },
-
         solList: {
           type: Array,
           computed: '_returnSolList(data)'
@@ -91,6 +93,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         results: {
           type: Object,
           notify: true
+        },
+
+        baseUrl: {
+          type: String
         }
       },
 

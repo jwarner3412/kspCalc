@@ -79,9 +79,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Home</span>
           </a>
 
-          <a data-route="users" href="{{baseUrl}}users">
+          <a data-route="results" href="{{baseUrl}}results">
             <iron-icon icon="info"></iron-icon>
-            <span>Users</span>
+            <span>Results</span>
           </a>
 
           <a data-route="contact" href="{{baseUrl}}contact">
@@ -116,19 +116,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <!-- Main Content -->
         <div class="content">
-          <iron-pages attr-for-selected="data-route" selected="{{route}}">
-            <section data-route="home">
-              <paper-material>
-                <sat-calc></sat-calc>
-              </paper-material>
-            </section>
+          <sat-calc>
+            <iron-pages attr-for-selected="data-route" selected="{{route}}">
+              <section data-route="home">
+                <paper-material>
+                  <sat-calc-input results="{{result}}"></sat-calc-input>
+                </paper-material>
+              </section>
 
-            <section data-route="users">
-            </section>
+              <section data-route="results">
+                <paper-material>
+                  <sat-calc-results results="{{result}}"></sat-calc-results>
+                </paper-material>
+              </section>
 
-            <section data-route="contact">
-            </section>
-          </iron-pages>
+              <section data-route="contact">
+              </section>
+            </iron-pages>
+          </sat-calc>
         </div>
       </paper-scroll-header-panel>
     </paper-drawer-panel>

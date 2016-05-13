@@ -9,7 +9,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <dom-module id="sat-calc-action">
   <template>
@@ -24,8 +23,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: var(--primary-background-color);
       }
     </style>
-    <paper-button raised>Geosyncronous</paper-button>
-    <paper-button raised>Do Math!</paper-button>
+    <paper-button raised
+      disabled="{{disable}}"
+      on-tap="setGeo">Geosyncronous</paper-button>
+
+    <a data-route="results" href="{{baseUrl}}results">
+      <paper-button raised>Do Math!</paper-button>
+    </a>
+    {{options}}
   </template>
   <script>
   (function() {
@@ -35,12 +40,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'sat-calc-action',
 
       properties: {
-        foo: {
-          type: String,
-          value: 'sat-calc-action',
+        disable: {
+          type: Boolean,
           notify: true
+        },
+
+        baseUrl: {
+          type: String
+        },
+
+        geoSet: {
+          type: Number,
+          value: false,
+          notify: true
+        },
+
+        targBy:
+      },
+
+      listeners: {
+        tap: 'setGeo'
+      },
+
+      setGeo: function() {
+        if (!this.disabled) {
+          this.targBy = 'per';
+          this.geoSet = this.bodyRot;
         }
       }
+
     });
   })();
   </script>
