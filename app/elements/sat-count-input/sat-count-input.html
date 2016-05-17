@@ -10,63 +10,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<dom-module id="sat-calc-action">
+<dom-module id="sat-count-input">
   <template>
     <style>
       :host {
         display: block;
-        text-align: right;
-      }
-
-      paper-button {
-        background-color: var(--primary-color);
-        color: var(--primary-background-color);
       }
     </style>
-    <paper-button raised
-      disabled="{{disable}}"
-      on-tap="setGeo">Geosyncronous</paper-button>
-
-    <a data-route="results" href="{{baseUrl}}results">
-      <paper-button raised>Do Math!</paper-button>
-    </a>
-    {{options}}
+    <paper-input id="sat-input"
+      label="# of Sats"
+      type="number"
+      value="{{count}}"
+      min="2"></paper-input>
   </template>
   <script>
   (function() {
     'use strict';
 
     Polymer({
-      is: 'sat-calc-action',
+      is: 'sat-count-input',
 
       properties: {
-        disable: {
-          type: Boolean,
-          notify: true
-        },
-
-        baseUrl: {
-          type: String
-        },
-
-        geoSet: {
+        count: {
           type: Number,
-          value: false,
+          value: 3,
           notify: true
-        }
-      },
-
-      listeners: {
-        tap: 'setGeo'
-      },
-
-      setGeo: function() {
-        if (!this.disabled) {
-          this.targBy = 'per';
-          this.geoSet = this.bodyRot;
         }
       }
-
     });
   })();
   </script>

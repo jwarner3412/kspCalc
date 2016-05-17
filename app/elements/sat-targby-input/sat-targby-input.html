@@ -10,63 +10,56 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<dom-module id="sat-calc-action">
+<dom-module id="sat-targby-input">
   <template>
     <style>
       :host {
         display: block;
-        text-align: right;
-      }
-
-      paper-button {
-        background-color: var(--primary-color);
-        color: var(--primary-background-color);
       }
     </style>
-    <paper-button raised
-      disabled="{{disable}}"
-      on-tap="setGeo">Geosyncronous</paper-button>
-
-    <a data-route="results" href="{{baseUrl}}results">
-      <paper-button raised>Do Math!</paper-button>
-    </a>
-    {{options}}
+    <paper-radio-group id="targby" selected="{{selected}}">
+      <div>Target By:</div>
+      <paper-radio-button name="alt">Altitude: [[toLocale(label.alt)]]m</paper-radio-button>
+      <paper-radio-button name="per">Period: [[toLocale(label.per)]]s <br> {{getTime(label.time)}}</paper-radio-button>
+    </paper-radio-group>
   </template>
   <script>
   (function() {
     'use strict';
 
     Polymer({
-      is: 'sat-calc-action',
+      is: 'sat-targby-input',
 
       properties: {
-        disable: {
-          type: Boolean,
+        selected: {
+          type: String,
+          value: 'alt',
           notify: true
         },
 
-        baseUrl: {
-          type: String
-        },
-
-        geoSet: {
-          type: Number,
-          value: false,
+        label: {
+          type: Object,
           notify: true
         }
       },
 
-      listeners: {
-        tap: 'setGeo'
+      getTime: function(time) {
+        var t = ' ';
+        var c = ' : '
+        if (time[0]) {
+          t += time[0] + 'd' + c;
+        }
+        if (time[1]) {
+          t += time[1] + 'h' + c;
+        }
+        t += time[2] + 'm' + c + time[3] + 's';
+        return t;
       },
 
-      setGeo: function() {
-        if (!this.disabled) {
-          this.targBy = 'per';
-          this.geoSet = this.bodyRot;
-        }
+      toLocale: function(lab) {
+        lab = lab.toLocaleString();
+        return lab;
       }
-
     });
   })();
   </script>

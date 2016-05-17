@@ -23,36 +23,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <calc-sol-select sol-list="[[solList]]"
-      user-sol="{{solInput}}"></calc-sol-select>
-
-    <calc-body-select body-list="[[bodyList]]"
-      user-body="{{bodyInput}}"
-      reset="{{reset}}"></calc-body-select>
-
-    <sat-calc-options user-options="{{options}}"
+    <sat-calc-options sol-list="[[solList]]"
+      body-list="[[bodyList]]"
+      label="[[targLabel]]"
       reset="{{reset}}"
-      label="{{targLabel}}"
-      targ-by="{{targBy}}">
-      <sat-calc-target user-val="{{targetValue}}"
-        min="{{min}}" max="{{max}}"
-        reset="{{reset}}" geo-set="{{geoSet}}"
-        body-rot="{{body.siderealDayS}}"
-        targ-by="{{targBy}}"></sat-calc-target>
+      sol-input="{{solInput}}"
+      body-input="{{bodyInput}}"
+      sat-count="{{satCount}}"
+      prec-input="{{precInput}}"
+      targ-by="{{targBy}}"></sat-calc-options>
 
-    </sat-calc-options>
+    <sat-calc-target user-val="{{inputValue}}"
+      min="[[min]]" max="[[max]]"></sat-calc-target>
 
-    <sat-calc-action baseUrl="{{baseUrl}}"
+    <!-- <sat-calc-action baseUrl="{{baseUrl}}"
       disable="{{geoDisable}}"
       geo-set="{{geoSet}}"
-      ></sat-calc-action>
+      ></sat-calc-action> -->
 
-    <sat-calc-data user-body="[[body]]"
-      geo-toggle="{{geoDisable}}"
-      user-options="{{options}}"
-      user-target="{{targetValue}}"
+    <sat-calc-data user-options="[[options]]"
+      user-target="[[targetValue]]"
       result="{{results}}"
-      min-val="{{min}}" max-val="{{max}}"></sat-calc-data>
+      range="{{range}}"></sat-calc-data>
 
     <iron-ajax auto
       url="../../dataList.json"
@@ -69,41 +61,65 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'sat-calc-input',
 
       properties: {
+        // mediators
         solList: {
           type: Array,
-          computed: '_returnSolList(data)'
+          computed: '_returnSolList(data)',
+          notify: true
         },
 
         bodyList: {
           type: Array,
-          computed: '_returnBodyList(data, solInput)'
+          computed: '_returnBodyList(data, solInput)',
+          notify: true
         },
 
-        body: {
-          type: Object,
-          computed: '_returnBody(data, solInput, bodyInput)'
-        },
-
+        // sends alt and per values to targby el
         targLabel: {
           type: Object,
           computed: 'getLabel(results.target)',
           notify: true
         },
 
+        // checks for reset and geo flags, sets input and target values accordingly
+        targetValue: {
+          type: Number,
+          computed: '_validateTarget(inputValue, targBy, reset, range, geoSet)',
+          notify: true
+        },
+
+        // for all the maths
+        options: {
+          type: Object,
+          computed: '_returnOptions(solInput, bodyInput, satCount, precInput, targBy, data)',
+          notify: true
+        },
+
+        // out to sibling for results
         results: {
           type: Object,
           notify: true
         },
 
-        baseUrl: {
-          type: String
+        min: {
+          type: Number,
+          computed: '_returnRange(range, targBy, "min")',
+          notify: true
+        },
+
+        max: {
+          type: Number,
+          computed: '_returnRange(range, targBy, "max")',
+          notify: true
         }
       },
 
       _returnSolList: function(d) {
         var solList = [];
         d.forEach(function(e, i, a) {
-          solList.push(e.name);
+          if (e.name) {
+            solList.push(e.name);
+          }
         });
         return solList;
       },
@@ -116,13 +132,73 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return bodyList;
       },
 
-      _returnBody: function(d, s, b) {
-        return d[s].bodys[b];
+      _returnOptions: function(sol, body, count, prec, targ, data) {
+        var options = {
+          body: data[sol].bodys[body],
+          satCount: count,
+          precInput: prec,
+          targBy: targ
+        };
+        console.log(options);
+        return options;
+      },
+
+      _returnRange: function(rng, targ, val) {
+        if (targ == 'alt') {
+          if (val == 'min') {
+            return rng.min.alt;
+          } else {
+            return rng.max.alt;
+          }
+        } else {
+          if (val == 'min') {
+            return rng.min.per;
+          } else {
+            return rng.max.per;
+          }
+        }
       },
 
       getLabel: function(results) {
-        var lbl = {alt: results.altM, per: results.per, time: results.time}
+        var lbl = {
+          alt: results.target.altM,
+          per: results.target.per,
+          time: results.target.time
+        };
         return lbl;
+      },
+
+      _validateTarget: function(val, targ, res, rng, geoBool) {
+        if (res) {
+          if (targ == 'alt') {
+            val = rng.min.alt;
+          } else {
+            val = rng.min.per;
+          }
+          res = false;
+        }
+
+        if (geoBool) {
+          val = this.options.body.synodicDayS;
+          geoBool = false;
+        }
+
+        if (targ == 'alt') {
+          if (val < rng.min.alt) {
+            val = rng.min.alt;
+          }
+          if (val > rng.max.alt) {
+            val = rng.max.alt;
+          }
+        } else {
+          if (val < rng.min.per) {
+            val = rng.min.per;
+          }
+          if (val > rng.max.per) {
+            val = rng.max.per;
+          }
+        }
+        return val;
       }
 
     });

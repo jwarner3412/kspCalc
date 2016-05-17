@@ -19,10 +19,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'sat-calc-data',
 
       properties: {
-        userBody: {
-          type: Object
-        },
-
         userOptions: {
           type: Object
         },
@@ -33,40 +29,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         minOrbit: {
           type: Object,
-          computed: 'minMath(userOptions, userBody)'
+          computed: 'minMath(userOptions)'
         },
 
         maxOrbit: {
           type: Object,
-          computed: 'maxMath(userOptions, userBody)'
+          computed: 'maxMath(userOptions)'
         },
 
-        minVal: {
-          type: Number,
-          computed: '_returnMinVal(userOptions.targBy, minOrbit)',
-          notify: true
-        },
-
-        maxVal: {
-          type: Number,
-          computed: '_returnMaxVal(userOptions.targBy, maxOrbit)',
+        range: {
+          type: Object,
+          computed: '_returnRange(minOrbit, maxOrbit)',
           notify: true
         },
 
         result: {
           type: Object,
-          computed: 'takeSnap(userOptions, userBody, userTarget)',
-          notify: true
-        },
-
-        geoToggle: {
-          type: Boolean,
-          computed: 'toggleGeo(userBody.siderealDayS, minOrbit.target.per, maxOrbit.target.per)',
+          computed: 'takeSnap(userOptions, userTarget)',
           notify: true
         }
+
+        // geoToggle: {
+        //   type: Boolean,
+        //   computed: 'toggleGeo(userBody.siderealDayS, minOrbit.target.per, maxOrbit.target.per)',
+        //   notify: true
+        // }
       },
 
-      SnapShot: function(opt, body, val) {
+      SnapShot: function(opt, val) {
+        console.log(opt + '' + val);
         this.math = {};
         // Semi-Major-Axis
         this.math.calcSMA = function(alt, bodyRad) {
@@ -106,7 +97,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return time;
         };
 
-        this.body = body;
+        this.body = opt.body;
+        console.log(opt);
         var prec = parseFloat(opt.precInput);
         var satCnt = parseInt(opt.satCount, 10);
         var known = parseFloat(val);
@@ -142,7 +134,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.satInfo = {};
       },
 
-      takeSnap: function(opt, body, val) {
+      takeSnap: function(opt, val) {
         if (val <= this.minVal) {
           return this.minOrbit;
         } else if (val >= this.maxVal) {
@@ -153,14 +145,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           } else if (val == this.result.target.per && opt.targBy == 'per') {
             return this.result;
           } else {
-            return new this.SnapShot(opt, body, val);
+            return new this.SnapShot(opt, val);
           }
         } else {
-          return new this.SnapShot(opt, body, val);
+          return new this.SnapShot(opt, val);
         }
       },
 
-      minMath: function(opt, body) {
+      minMath: function(opt) {
         // returns radians lolz
         Math.radians = function(degrees) {
           return degrees * Math.PI / 180;
@@ -171,30 +163,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var opts = {
           precInput: opt.precInput,
           satCount: opt.satCount,
-          targBy: 'alt'
-        }
+          targBy: 'alt',
+          body: opt.body
+        };
 
-        var bodyR = body.radiusM;
-        var minPE = body.minPE + 1000;
+        var bodyR = opt.body.radiusM;
+        var minPE = opt.body.minPE + 1000;
         var precInput = parseFloat(opt.precInput);
         var satCount = parseInt(opt.satCount, 10);
 
         var rads = Math.radians(180 / satCount + precInput);
         var minAlt = Math.max(Math.ceil(bodyR / Math.cos(rads) - bodyR), minPE);
 
-        var minOrbit = new this.SnapShot(opts, body, minAlt);
-
+        var minOrbit = new this.SnapShot(opts, minAlt);
+        console.log(minOrbit);
         return minOrbit;
       },
 
-      maxMath: function(opt, body) {
+      maxMath: function(opt) {
         var opts = {
           precInput: opt.precInput,
           satCount: opt.satCount,
-          targBy: 'per'
+          targBy: 'per',
+          body: opt.body
         }
-        var bodyR = body.radiusM;
-        var maxAP = body.soiRadM;
+        var bodyR = opt.body.radiusM;
+        var maxAP = opt.body.soiRadM;
         var precInput = parseFloat(opt.precInput);
         var satCount = parseInt(opt.satCount, 10);
 
@@ -203,29 +197,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var tSM = Math.pow((((2 * alt) + (2 * b.radiusM)) / 2), 3);
           var perSecTot = 2 * Math.PI * Math.sqrt(tSM / b.MUms3);
           return perSecTot;
-        })(maxAP, body);
+        })(maxAP, opt.body);
 
         var maxPer = (maxCircPer / ratio) / ratio;
 
-        var maxOrbit = new this.SnapShot(opts, body, maxPer);
-
+        var maxOrbit = new this.SnapShot(opts, maxPer);
+        console.log(maxOrbit);
         return maxOrbit;
       },
 
-      _returnMinVal(opt, min) {
-        if (opt == 'alt') {
-          return min.target.altM;
-        } else {
-          return min.target.per;
+      _returnRange(min, max) {
+        var range = {
+          min: {alt: min.target.altM, per: min.target.per},
+          max: {alt: max.target.altM, per: max.target.per}
         }
-      },
-
-      _returnMaxVal(opt, max) {
-        if (opt == 'alt') {
-          return max.target.altM;
-        } else {
-          return max.target.per;
-        }
+        return range;
       },
 
       convert: function(opt, obj) {

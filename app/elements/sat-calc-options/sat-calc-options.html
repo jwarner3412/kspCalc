@@ -43,29 +43,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
     </style>
-    <paper-input id="precision"
-      label="Precision"
-      type="number"
-      value="{{precInput}}"
-      min="0.001"
-      change="{{validate('#precision')}}"></paper-input>
 
-    <paper-input id="sat-input"
-      label="# of Sats"
-      type="number"
-      value="{{satCount}}"
-      min="2"
-      change="{{validate('#sat-input')}}"></paper-input>
+    <calc-sol-select sol-list="[[solList]]"
+      user-sol="{{solInput}}"></calc-sol-select>
 
-    <div class="wrapper">
-      <paper-radio-group id="targby" selected="{{targBy}}" change="{{validateTB('#targby')}}">
-        <div>Target By:</div>
-        <paper-radio-button name="alt">Altitude: {{toLocale(label.alt)}}m</paper-radio-button>
-        <paper-radio-button name="per">Period: {{toLocale(label.per)}}s <br> {{getTime(label.time)}}</paper-radio-button>
-      </paper-radio-group>
+    <calc-body-select body-list="[[bodyList]]"
+      user-body="{{bodyInput}}"
+      on-iron-select="_reset"></calc-body-select>
 
-      <content></content>
-    </div>
+    <sat-count-input count="{{satCount}}" on-change="_reset"></sat-count-input>
+
+    <sat-precision-input prec="{{precInput}}" on-change="_reset"></sat-precision-input>
+
+    <sat-targby-input selected="{{targBy}}"
+      label="[[label]]"></sat-targby-input>
 
   </template>
   <script>
@@ -76,19 +67,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'sat-calc-options',
 
       properties: {
-        userOptions: {
+        // sorted lists from parent
+        solList: {
+          type: Array
+        },
+
+        bodyList: {
+          type: Array
+        },
+
+        // input for label values on targBy
+        label: {
           type: Object,
-          computed: '_returnOpts(precInput, satCount, targBy)',
           notify: true
         },
 
+        // watches for changes and throws reset flag
         reset: {
           type: Boolean,
           notify: true
         },
 
-        label: {
-          type: Object
+        // input field values
+        solInput: {
+          type: Number,
+          notify: true
+        },
+
+        bodyInput: {
+          type: Number,
+          notify: true
+        },
+
+        satCount: {
+          type: Number,
+          notify: true
+        },
+
+        precInput: {
+          type: Number,
+          notify: true
         },
 
         targBy: {
@@ -97,51 +115,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      _returnOpts: function(prec, sats, targ) {
-        var options = {
-          precInput: prec,
-          satCount: sats,
-          targBy: targ
-        }
+      _reset: function() {
         this.reset = true;
-        return options;
-      },
-
-      getTime: function(time) {
-        var t = ' ';
-        var c = ' : '
-        if (time[0]) {
-          t += time[0] + 'd' + c;
-        }
-        if (time[1]) {
-          t += time[1] + 'h' + c;
-        }
-        t += time[2] + 'm' + c + time[3] + 's';
-        return t;
-      },
-
-      toLocale: function(lab) {
-        lab = lab.toLocaleString();
-        return lab;
-      },
-
-      validate: function(id) {
-        var v = this.querySelector(id).value;
-        var min = this.querySelector(id).min;
-        if (v) {
-          if (v < min) {
-            this.querySelector(id).value = min;
-          }
-        } else {
-          this.querySelector(id).value = min;
-        }
-        return this;
-      },
-
-      validateTB: function(id) {
-        if (!this.querySelector(id).selected) {
-          this.querySelector(id).selected = 'alt';
-        }
+        console.log(this.reset);
       }
     });
   })();
