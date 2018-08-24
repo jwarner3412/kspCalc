@@ -5,6 +5,7 @@ app.yaml
 _site
 .sass-cache
 .jekyll-metadata
+app/scripts2
 
 # Created by https://www.gitignore.io/api/linux
 
