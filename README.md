@@ -1,5 +1,5 @@
 # KSP Satellite Depolyment Calculator
-## v0.9.0 can be used at https://jwarner3412.github.io
+## v0.9.0 can be used at https://jwarner3412.github.io/kerbility
 Datafile has not been updated.
 
 dev branch for v0.9.0 (current with master)
