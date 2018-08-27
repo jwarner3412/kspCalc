@@ -1,0 +1,82 @@
+<h1>Kerbal Space Program</h1>
+      <h2>saTellIte-NetwOrk<br>SpacEr-oUt-eR</h2>
+      <form action="">
+          <table><tbody>
+              <tr>
+                  <td><label for="solSelect">System</label></td>
+                  <td></td>
+                  <td><label for="bodySelect">Body</label></td>
+              </tr>
+              <tr>
+                  <td><select name="solSelect" id="solSelect"></select></td>
+                  <td></td>
+                  <td><select name="bodySelect" id="bodySelect"></select></td>
+              </tr>
+              <tr>
+                  <td><label for="precInput">Precision</label></td>
+                  <td></td>
+                  <td><label for="satCount"># of Sats</label></td>
+              </tr>
+              <tr>
+                  <td><input type="number" id="precInput" name="precInput" value="0.01"></td>
+                  <td></td>
+                  <td><input type="number" id="satCount" name="satCount" value="3" min="2"></td>
+              </tr></tbody></table>
+              <table><tbody>
+              <tr>
+                  <td colspan="2"><select name="targBySelect" id="targBySelect">
+                  <option value="alt">Target Altitude</option>
+                  <option value="per">Target Period</option>
+                  </select></td>
+              </tr>
+              <tr>
+                  <td><label for="targAltInput">Circ (m):</label></td>
+                  <td><input type="number" id="targAltInput" name="targAltInput"></td>
+              </tr>
+          </tbody></table>
+          <table><tbody>
+              <tr>
+                  <td><label for="perDayInput">Days</label></td>
+                  <td><label for="perHourInput">Hours</label></td>
+                  <td><label for="perMinInput">Minutes</label></td>
+                  <td><label for="perSecInput">Seconds</label></td>
+              </tr>
+              <tr>
+                  <td><input type="number" name="perDayInput" class="perInputs" id="perDayInput"></td>
+                  <td><input type="number" name="perHourInput" class="perInputs" id="perHourInput"></td>
+                  <td><input type="number" name="perMinInput" class="perInputs" id="perMinInput"></td>
+                  <td><input type="number" name="perSecInput" class="perInputs" id="perSecInput"></td>
+              </tr>
+          </tbody></table>
+              <table><tbody>
+              <tr>
+                  <td><button id="helpButton">Instructions</button></td>
+                  <td><button id="doMaths">Do Maths!</button></td>
+              </tr>
+          </tbody></table>
+      </form>
+      <div id="helpWrap">
+          <ol>
+              <li>Select your solar system and body.</li>
+              <li>Enter how many satellites are in your launch bundle.</li>
+              <li>Enter a target altitude or orbital period for your deployed network. Default is minimum altitude/period.</li>
+              <ul>
+                  <li>Protip: Geosync orbit has a period of 1 day (days are relative to body rotation).</li>
+              </ul>
+              <li>The results will display deployment orbit.</li>
+              <ol>
+                  <li>Launch your bundle to the deployment orbit.</li>
+                  <li>Each periapsis circularize 1 satellite.</li>
+                  <li>Repeat until your out of satellites.</li>
+              </ol>
+              <li>Deorbit your junk.</li>
+          </ol>
+          <p>
+          Being accurate with your orbit time period is far more important than matching altitude exactly.
+          Make sure to compensate for decouplers and adjust your period back after each satelitte stage event.
+          Satellites should be within 0.05sec of desired orbit, use 'Ctrl' + translation thrusters. <br>
+          *Note: Placement precision near 0 will require a 0' inclination.
+          </p>
+          <div class="buttonWrap"><button id="helpClose">Close</button></div>
+      </div>
+      <div id="results"></div>
