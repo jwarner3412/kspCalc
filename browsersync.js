@@ -1,7 +1,7 @@
 /**
  * Require Browsersync
  */
-var browserSync = require('browser-sync');
+var browserSync = require('browser-sync')
 
 /**
  * Run Browsersync with server config
@@ -9,4 +9,4 @@ var browserSync = require('browser-sync');
 browserSync({
     server: 'app',
     files: ['app/**/*.js']
-});
+})

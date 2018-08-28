@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/jwarner3412/kspCalc#readme",
   "devDependencies": {
-    "browser-sync": "^2.24.7"
+    "browser-sync": "^2.24.7",
+    "jsdom": "^12.0.0"
   }
 }
